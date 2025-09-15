@@ -1,5 +1,40 @@
 # Knowtes 
 ## \#WhatTheSheet?!?!??
+### By Michael Brukson, Anthony Nosoff, and Michael Tesis
+
+## Our Mission
+Have you ever listened to a song and thought to yourself, *man! I'd love to play that myself!*<br>
+Well, we have, and we want to make it easier for everyone to generate the sheet music behind your favorite audio.
+
+## Our Target Audience
+
+
+## Main Features
+1. Model for recognizing and splitting instruments in a audio
+2. Model for determining rhythm in audio
+3. Model for determining frequency in audio
+4. UI for uploading audio
+5. Backend for processing audio
+6. Output with appropriate sheet music
+7. User element: seeing past uploads
+8. User element: exploring and following other users
+
+## Preliminary Development Plan
+### Research & Analysis 
+- How you’ll refine user needs and study competitors.
+
+### Design – UI/UX considerations 
+- (layout, navigation, accessibility, etc.).
+
+### Development 
+- Front-end and back-end technologies you would use.
+
+### Testing
+- How you’ll test usability, performance, and security.
+
+### Launch & Maintenance 
+- Strategy for release and ongoing updates.
+
 
 ## Functional requirements
 - Database that stores the following:
