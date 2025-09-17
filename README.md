@@ -68,86 +68,68 @@ Knowtes is a music recognition software. Users can upload an mp3 file or a wav f
 
 ## Requirements
 
-//npm project requirements here
-
 ## Installation
 
+### Prerequisites
+
+- Node.js (version 14 or higher)
+- npm (comes with Node.js)
+
+### Getting Started
+
+1. **Clone the repository**
+
+   ```bash
+   git clone https://github.com/ProjFall2025/Team3.git
+   cd Team3
+   ```
+
+2. **Install backend dependencies**
+
+   ```bash
+   npm install
+   ```
+
+3. **Install frontend dependencies**
+
+   ```bash
+   cd app
+   npm install
+   cd ..
+   ```
+
+4. **Build the React application**
+
+   ```bash
+   npm run build-react
+   ```
+
+5. **Start the development server**
+
+   ```bash
+   npm run dev
+   ```
+
+6. **Access the application**
+   - Open your browser and navigate to `http://localhost:8080`
+   - The API endpoint is available at `http://localhost:8080/api/test`
+
+### Development Mode
+
+For development with hot reloading:
+
+1. **Start the backend server** (in one terminal):
+
+   ```bash
+   npm run dev
+   ```
+
+2. **Start the React development server** (in another terminal):
+   ```bash
+   cd app
+   npm start
+   ```
+
+The React app will run on `http://localhost:3000` and proxy API calls to the backend.
+
 ### Key Notes
-
-# Project Part 1: Website Conceptualization & Planning
-
-### Objective
-
-You will document the concept for the website theme chosen in class. Each team member will contribute to the project by updating the README.md file in your team’s GitHub repository. This assignment emphasizes both project planning and collaborative version control.
-
-## Instructions
-
-### 1. Website Conceptualization
-
-Revisit the theme selected in class.
-Write a mission statement that explains the core goal of your website.
-
-### 2. Target Users
-
-Identify at least three user groups your site will serve.
-For each group, describe:
-Demographics and interests.
-What they need from your site.
-How your site supports them.
-
-### 3. Main Functionalities
-
-Describe at least eight (8) features of your website.Briefly describe the functionality to be an EPIC (will cover the issues types next week)
-Explain how these features align with your mission and user needs.
-Highlight any unique selling points (USPs).
-
-### 4. Preliminary Development Plan
-
-Outline a five-phase plan:
-
-Research & Analysis – How you’ll refine user needs and study competitors.
-Design – UI/UX considerations (layout, navigation, accessibility, etc.).
-Development – Front-end and back-end technologies you would use.
-Testing – How you’ll test usability, performance, and security.
-Launch & Maintenance – Strategy for release and ongoing updates.
-Deliverable (via GitHub)
-
-Use your team’s existing GitHub repository:
-Update the README.md file with:
-Project Name
-Students Name (Student 1,Student 2,...)
-All required sections (Conceptualization, Target Users, Functionalities, Development Plan).
-Length: 1200–1500 words total.
-All three team members’ names at the top.
-Collaboration Requirement
-
-Each student must contribute to the README.md at least once.
-Commit messages must be clear and descriptive.
-Contributions may include writing, editing, formatting, or adding references.
-Git Workflow Options
-
-Command line basics:
-
-    git clone <repo_url>
-    git checkout -b <branchname>
-    git add README.md
-    git commit -m "Added mission statement section"
-    git push origin <branchname>
-
-Then open a Pull Request on GitHub and merge changes.
-
-Or use a Git client (e.g., GitHub Desktop, Sourcetree, VS Code built-in Git).
-
-## Assessment Criteria
-
-Content Quality – Mission, users, features, and plan are thorough and realistic.
-Collaboration – All members contributed (verified via Git commit history).
-Commit Messages – Clear, professional, and descriptive.
-Organization – README is well-formatted in Markdown, easy to read.
-
-## Submission Guidelines
-
-Upload here your GitHub readme page (grading will be on BrightSpace) .
-Ensure all members names are included at the top of the README.
-Each team member must have at least one commit with a meaningful message.
-Cite any references
