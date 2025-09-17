@@ -6,8 +6,7 @@
 
 ## Our Mission
 
-We want to make it easier for everyone to get sheet music, without having to transcribe it themselves.<br>
-_Especially_ if they dont have the skillset to do so, making music as a whole more accessible.
+Our goal is to simplify access to sheet music by automating the transcription process. Traditionally, transcribing music requires a practiced ear and significant expertise, making it challenging for many novice musicians and enthusiasts. By using technology to transcribe music, we make music creation and enjoyment more accessible to everyone, regardless of their skills.
 
 ## Our Target Audience
 
