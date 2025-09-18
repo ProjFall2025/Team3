@@ -6,8 +6,7 @@
 
 ## Our Mission
 
-We want to make it easier for everyone to get sheet music, without having to transcribe it themselves.<br>
-_Especially_ if they dont have the skillset to do so, making music as a whole more accessible.
+We want to make it easier for **everyone** to discover sheet music. <br>This is _especially_ for those who may not have the skillset to transcribe music on their own. <br>**Let's make music more accessible.**
 
 ## Our Target Audience
 
