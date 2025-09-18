@@ -1,0 +1,16 @@
+{
+  "name": "knowtes",
+  "version": "1.0.0",
+  "description": "We want to make it easier for everyone to get sheet music, without having to transcribe it themselves.<br>\r _Especially_ if they dont have the skillset to do so, making music as a whole more accessible.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node index.js",
+    "build-react": "cd app && npm run build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
