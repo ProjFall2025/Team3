@@ -13,33 +13,33 @@ Our goal is to simplify access to sheet music by automating the transcription pr
 Our site will serve the following user groups:
 
 1. **Music Students and Learners**
-- *Demographics and interests*:
+- *Demographics and interests*:  
 Teenagers to young adults learning how to play instruments professionally or amateurly interested in connecting the songs they enjoy to music theory. 
 
-- *What they need from our site*:
+- *What they need from our site*:  
 The sheet music created by our site for a song they want to reproduce.
 
-- *How our site supports them*:
+- *How our site supports them*:  
 Converts audio provided by them into sheet notation. It also helps them make the connection between listening and reading music.
 
 2. **Composers and Songwriters**
-- *Demographics and interests*:
+- *Demographics and interests*:  
 Adults professionally involved in the music industry at all levels who want to record original music or arrange existing music in a new way.
 
-- *What they need from our site*:
+- *What they need from our site*:  
 The creation of separate music sheets for different instruments used in a song. Also, connection to other musicians with similar music interests.
 
-- *How our site supports them*:
+- *How our site supports them*:  
 Automates the time consuming process of recording music into a music sheet. Separates the music sheets by the instuments used in the song. Recommends other site users that work with similar music.
 
 3. **Music Teachers**
-- *Demographics and interests*:
+- *Demographics and interests*:  
 Adults that teach music publicly or privately that are interested in creating a protfolio of note sheets for songs they use for teaching. 
 
-- *What they need from our site*:
+- *What they need from our site*:  
 A free and easy way to obtain sheet music for songs they want to teach. Also, the history of the songs they requested on the site to create an educational plan and lessons.
 
-- *How our site supports them*:
+- *How our site supports them*:  
 Converts songs to music sheets for free and stores all of the created sheets in the user's history.
 
 ## Main Features
