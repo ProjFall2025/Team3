@@ -13,34 +13,37 @@ Our goal is to simplify access to sheet music by automating the transcription pr
 Our site will serve the following user groups:
 
 1. **Music Students and Learners**
-- *Demographics and interests*:  
-Teenagers to young adults learning how to play instruments professionally or amateurly interested in connecting the songs they enjoy to music theory. 
 
-- *What they need from our site*:  
-The sheet music created by our site for a song they want to reproduce.
+- _Demographics and interests_:  
+  Teenagers to young adults learning how to play instruments professionally or amateurly interested in connecting the songs they enjoy to music theory.
 
-- *How our site supports them*:  
-Converts audio provided by them into sheet notation. It also helps them make the connection between listening and reading music.
+- _What they need from our site_:  
+  The sheet music created by our site for a song they want to reproduce.
+
+- _How our site supports them_:  
+  Converts audio provided by them into sheet notation. It also helps them make the connection between listening and reading music.
 
 2. **Composers and Songwriters**
-- *Demographics and interests*:  
-Adults professionally involved in the music industry at all levels who want to record original music or arrange existing music in a new way.
 
-- *What they need from our site*:  
-The creation of separate music sheets for different instruments used in a song. Also, connection to other musicians with similar music interests.
+- _Demographics and interests_:  
+  Adults professionally involved in the music industry at all levels who want to record original music or arrange existing music in a new way.
 
-- *How our site supports them*:  
-Automates the time consuming process of recording music into a music sheet. Separates the music sheets by the instuments used in the song. Recommends other site users that work with similar music.
+- _What they need from our site_:  
+  The creation of separate music sheets for different instruments used in a song. Also, connection to other musicians with similar music interests.
+
+- _How our site supports them_:  
+  Automates the time consuming process of recording music into a music sheet. Separates the music sheets by the instuments used in the song. Recommends other site users that work with similar music.
 
 3. **Music Teachers**
-- *Demographics and interests*:  
-Adults that teach music publicly or privately that are interested in creating a protfolio of note sheets for songs they use for teaching. 
 
-- *What they need from our site*:  
-A free and easy way to obtain sheet music for songs they want to teach. Also, the history of the songs they requested on the site to create an educational plan and lessons.
+- _Demographics and interests_:  
+  Adults that teach music publicly or privately that are interested in creating a protfolio of note sheets for songs they use for teaching.
 
-- *How our site supports them*:  
-Converts songs to music sheets for free and stores all of the created sheets in the user's history.
+- _What they need from our site_:  
+  A free and easy way to obtain sheet music for songs they want to teach. Also, the history of the songs they requested on the site to create an educational plan and lessons.
+
+- _How our site supports them_:  
+  Converts songs to music sheets for free and stores all of the created sheets in the user's history.
 
 ## Main Features
 
@@ -67,7 +70,12 @@ In order to study competitors, we will first identify apps or sites similar to o
 
 ### Development
 
-- Front-end and back-end technologies you would use.
+- **Frontend**
+  A combination of React, TypeScript, HTML5, and CSS3 will be used. **React** will provide the framework for building the UI and managing the application state efficiently. **TypeScript** will add static typing to JavaScript, improving code maintainability. **HTML5** will structure the content and layout of the web pages. **CSS3** will handle the visual styling and responsive design, making the application look modern and work well on different devices.
+- **Backend**
+  Node.js, Express.js, PostgreSQL, and RESTful API routes will be used extensively in the backend. **Node.js** will provide the runtime environment for executing server-side JavaScript code, handling requests, and managing application logic. **Express.js** serves as the web application framework for Node.js, enabling routing, middleware integration, and RESTful API creation. **PostgreSQL** serves as the RDBS to store and manage sensitive user data, transcribed music sheets, and admin permissions securely. **RESTful API routes** defines the interface for communication between the frontend and backend, allowing clients to perform operations such as uploading audio, retrieving user data, updating existing data, and will even allow third party applications to leverage the utilities the site provides.
+- **Other**
+  External music transcription APIs/In house algorithms will allow for the transcribing of music. **JWT** may be used for 2FA.
 
 ### Testing
 
