@@ -57,7 +57,8 @@ Converts songs to music sheets for free and stores all of the created sheets in 
 
 ### Research & Analysis
 
-- How you’ll refine user needs and study competitors.
+In order to refine our user's needs, the user's home page will contain an area to provide feedback, identify issues, and make recommendations for site improvement. We will analyze all of the users' feedback and make corresponding changes and enhancements as time and resources allow. We will also include a rating and comment section for each transcription in order to see our transcription's accuracy and user satisfaction.  
+In order to study competitors, we will first identify apps or sites similar to ours. Some of the competitors that we have already identified are AnthemScore, ScoreCloud, and Melody Scanner. Then we will compare our site's features and performance to theirs. This will include music sheet accuracy, the instruments supported, export formats, pricing, etc. Lastly we will also look at reviews left about our competitors and see if there is anything we can do better than them.
 
 ### Design – UI/UX considerations
 
@@ -69,7 +70,7 @@ Converts songs to music sheets for free and stores all of the created sheets in 
 
 ### Testing
 
-- How you’ll test usability, performance, and security.
+We will create a test plan consisting of the test cases corresponding to each use case of the site. Using these test cases we'll test the functionality, validation, and error display. The key areas to test are: authentication (site registration, login and logout), authorization (the users can only perform actions provided by their roles and permissions), user's input (format of all fields including song upload is correctly validated), the output (ability to correctly display, download, and print the music sheet and other information presented to users), and the interactions between users on the site. Additionally, we will perform load tests to make sure that the site is scalable and can accomidate the desired volume of users with an adequate response speed using software that simulates different amounts of concurrent users.
 
 ### Launch & Maintenance
 
