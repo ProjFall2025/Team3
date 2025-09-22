@@ -115,14 +115,44 @@ The sticky **navigation bar** will make the application cohesive, including link
 - Login 
 <br><br>
 
-The upload page will have a form layout with the following elements:
+Each page layout will have several key elements. <br><br>
+**Upload and export page:**
 - A button to upload content
 - A generated dropdown menu to select the instrument to transcribe
 - A horizontal (widescreen) or vertical (mobile/portrait) menu to select export type (PDF, MIDI, MusicXML)
 - Additional export configuration options
+- A button to export the result
 <br><br>
 
-Knowtes will also take accessibility measures such as:
+**Exported music elements:**
+- Options to download (leading to export page)
+- Favorite button
+- Star rating
+- Comment buttons that show a list with username, profile pic, content, and star rating (if applicable)
+<br><br>
+
+**User profile page:**
+- Profile picture, username, bio
+- Upload, follower, and total favorite counts
+- List view of transcribed music
+- List view of favorites (if public)
+<br><br>
+
+**Exploration page:**
+- A modular grid view of songs
+- Showing related/similar genre songs to previously exported ones
+- Genre selection
+- Trending songs view (sort by favorite)
+- All song listings have profiles associated with them
+<br><br>
+
+**Search page:**
+- Main text field with live-updating results
+- Option to search generally or by profile, song, or instrument
+- Option to show search results as a grid or list view
+<br><br>
+
+Knowtes will also take **accessibility measures**, such as:
 - Making sure elements are high-contrast for readability
 - Shifting or marking elements instead of solely using color changes to indicate importance or interactivity
 - Consistent headings and element styles throughout the site
