@@ -6,7 +6,8 @@
 
 ## Our Mission
 
-Our goal is to simplify access to sheet music by automating the transcription process. Traditionally, transcribing music requires a practiced ear and significant expertise, making it challenging for many novice musicians and enthusiasts. By using technology to transcribe music, we make music creation and enjoyment more accessible to everyone, regardless of their skills.
+Our goal is to simplify access to sheet music by automating the transcription process. Traditionally, transcribing music requires a practiced ear and significant expertise, making it challenging for many novice musicians and enthusiasts. By using technology to transcribe music, we make music creation and enjoyment more accessible to everyone, regardless of their skills. <br>
+**Let's make music more accessible.**
 
 ## Target Users
 
@@ -66,7 +67,29 @@ In order to study competitors, we will first identify apps or sites similar to o
 
 ### Design – UI/UX considerations
 
-- (layout, navigation, accessibility, etc.).
+Knowtes will feature a streamlined layout with a focus on two main aspects: **uploads** and **profiles**.<br>
+The sticky **navigation bar** will make the application cohesive, including links to the following:
+- Making uploads
+- Exploring profiles
+- Viewing your own profile
+- Search
+- Login 
+<br><br>
+
+The upload page will have a form layout with the following elements:
+- A button to upload content
+- A generated dropdown menu to select the instrument to transcribe
+- A horizontal (widescreen) or vertical (mobile/portrait) menu to select export type (PDF, MIDI, MusicXML)
+- Additional export configuration options
+<br><br>
+
+Knowtes will also take accessibility measures such as:
+- Making sure elements are high-contrast for readability
+- Shifting or marking elements instead of solely using color changes to indicate importance or interactivity
+- Consistent headings and element styles throughout the site
+- Modular elements that can resize depending on mobile or pc navigation
+- Providing the ability to export to MusicXML to accomodate to those with low vision due to its versatility
+
 
 ### Development
 
