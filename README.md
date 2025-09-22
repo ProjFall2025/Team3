@@ -175,23 +175,7 @@ We will create a test plan consisting of the test cases corresponding to each us
 
 ### Launch & Maintenance
 
-- Strategy for release and ongoing updates.
-
-## Functional requirements
-
-- Database that stores the following:
-- ...
-- Backend (using Node.js)
-
-## Non-functional requirements
-
-- External API
-- Internal API
-
-## Non-functional choices
-
-- React Frontend
-- Postgresql
+Multiple development channels (alpha, beta, release) implemented as Git branches will be used to separate stable releases from experimental feature platforms and non-thoroughly-tested versions, following the test protocols above. In the event that servers for the application are not running, an automatic restart can be attempted. If failed, features such as AWS CloudWatch or its analogs can alert the team of such events. Bug reporting information will be included in application settings.
 
 ## Project Description
 
