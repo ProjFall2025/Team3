@@ -47,14 +47,53 @@ Our site will serve the following user groups:
 
 ## Main Features
 
-1. Converting user provided audio into sheet music for a detected/specified instrument.
-2. Seeing the most recently transcribed audio.
-3. Seeing all past sheet music per user.
-4. Being able to follow other users registered on the site.
-5. Seeing all the users who transcribed a specific song.
-6. Seeing all the transcriptions for an instrument.
-7. Exporting transcribed sheet music in multiple formats (PDF, MIDI, MusicXML).
-8. Commenting and rating transcriptions to provide feedback and improve accuracy.
+1. Audio-to-Sheet Music Transcription
+   Users can upload audio files (mp3/wav) and receive transcribed sheet music for a detected or specified instrument.
+   EPIC: Automates a complex, expert-only process, making sheet music creation accessible to all skill levels.
+   Alignment: Directly supports learners, composers, and teachers by simplifying transcription.
+   **USP**: Fast, automated, multi-instrument transcription.
+
+2. Recent Transcriptions Dashboard
+   Users see their most recently transcribed audio and sheet music.
+   EPIC: Provides instant feedback and easy access to new work.
+   Alignment: Helps users track progress and revisit recent creations.
+   **USP**: Personalized, real-time updates.
+
+3. User Sheet Music History
+   Users can view all past sheet music they've transcribed.
+   EPIC: Builds a personal library for learning, teaching, or composing.
+   Alignment: Supports educational planning and creative archiving.
+   **USP**: Persistent, searchable user history.
+
+4. Social Following System
+   Users can follow other registered users.
+   EPIC: Fosters a music community for collaboration and inspiration.
+   Alignment: Connects users with similar interests, supporting networking.
+   **USP**: Social features tailored for musicians.
+
+5. Song Transcriber List
+   See all users who have transcribed a specific song.
+   EPIC: Encourages discovery and comparison of interpretations.
+   Alignment: Enables peer learning and community engagement.
+   **USP**: Collaborative sheet music ecosystem.
+
+6. Instrument-Based Transcription Search
+   View all transcriptions for a particular instrument.
+   EPIC: Makes it easy to find relevant sheet music for specific instruments.
+   Alignment: Supports targeted learning and arrangement.
+   **USP**: Instrument-centric search and filtering.
+
+7. Multi-Format Export (PDF, MIDI, MusicXML)
+   Export transcribed sheet music in various formats for printing, editing, or playback.
+   EPIC: Maximizes usability across devices and workflows.
+   Alignment: Meets diverse user needs for sharing, teaching, and performing.
+   **USP**: Flexible, professional-grade export options.
+
+8. Commenting and Rating System
+   Users can comment on and rate transcriptions to provide feedback and improve accuracy.
+   EPIC: Drives quality improvement and community interaction.
+   Alignment: Supports learning, collaboration, and continuous enhancement.
+   **USP**: Crowdsourced accuracy and feedback.
 
 ## Preliminary Development Plan
 
