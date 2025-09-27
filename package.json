@@ -6,11 +6,18 @@
   "scripts": {
     "dev": "node index.js",
     "build-react": "cd app && npm run build",
+    "watch": "nodemon --exec \"cd app && npm run build && cd .. && nodemon index.js\" -e js,ts,tsx,css --ignore app/build/ --watch app/src",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^5.1.0"
+    "express": "^5.1.0",
+    "nodemon": "^3.1.10",
+    "react-router-dom": "^7.9.2"
+  },
+  "devDependencies": {
+    "@types/react": "^19.1.13",
+    "@types/react-dom": "^19.1.9"
   }
 }
