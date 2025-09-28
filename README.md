@@ -108,57 +108,63 @@ In order to study competitors, we will first identify apps or sites similar to o
 
 Knowtes will feature a streamlined layout with a focus on two main aspects: **uploads** and **profiles**.<br>
 The sticky **navigation bar** will make the application cohesive, including links to the following:
+
 - Making uploads
 - Exploring profiles
 - Viewing your own profile
 - Search
-- Login 
-<br><br>
+- Login
+  <br><br>
 
 Each page layout will have several key elements. <br><br>
 **Upload and export page:**
+
 - A button to upload content
 - A generated dropdown menu to select the instrument to transcribe
 - A horizontal (widescreen) or vertical (mobile/portrait) menu to select export type (PDF, MIDI, MusicXML)
 - Additional export configuration options
 - A button to export the result
-<br><br>
+  <br><br>
 
 **Exported music elements:**
+
 - Options to download (leading to export page)
 - Favorite button
 - Star rating
 - Comment buttons that show a list with username, profile pic, content, and star rating (if applicable)
-<br><br>
+  <br><br>
 
 **User profile page:**
+
 - Profile picture, username, bio
 - Upload, follower, and total favorite counts
 - List view of transcribed music
 - List view of favorites (if public)
-<br><br>
+  <br><br>
 
 **Exploration page:**
+
 - A modular grid view of songs
 - Showing related/similar genre songs to previously exported ones
 - Genre selection
 - Trending songs view (sort by favorite)
 - All song listings have profiles associated with them
-<br><br>
+  <br><br>
 
 **Search page:**
+
 - Main text field with live-updating results
 - Option to search generally or by profile, song, or instrument
 - Option to show search results as a grid or list view
-<br><br>
+  <br><br>
 
 Knowtes will also take **accessibility measures**, such as:
+
 - Making sure elements are high-contrast for readability
 - Shifting or marking elements instead of solely using color changes to indicate importance or interactivity
 - Consistent headings and element styles throughout the site
 - Modular elements that can resize depending on mobile or pc navigation
 - Providing the ability to export to MusicXML to accomodate to those with low vision due to its versatility
-
 
 ### Development
 
@@ -250,3 +256,25 @@ For development with hot reloading:
 The React app will run on `http://localhost:3000` and proxy API calls to the backend.
 
 ### Key Notes
+
+## Database
+
+The application uses PostgreSQL as its database with the following structure:
+
+### Tables
+
+- **users:** Stores user account information including username, email, password, admin status, and creation timestamp
+- **sheets:** Stores transcribed sheet music with metadata including title, description, visibility settings, and creation/updated timestamps
+- **user_follows:** Association table that relates a user to their follower(s).
+
+### Functions
+
+- **update_updated_at:** Trigger function that modifies a sheets entity's "updated_at" column with the time of the request.
+
+### Triggers
+
+- **update_sheets_time:** before UPDATE on sheets table, calls the trigger function update_updated_at on all affected rows
+
+### Database Diagram
+
+![database diagram](db/team3_dbdiagram.svg)
