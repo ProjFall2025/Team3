@@ -279,4 +279,4 @@ The application uses PostgreSQL as its database with the following structure:
 
 ### Database Diagram
 
-![database diagram](db/team3_dbdiagram.svg)
+![database diagram](db/Team3_dbdiagram.svg)
