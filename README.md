@@ -257,6 +257,8 @@ The React app will run on `http://localhost:3000` and proxy API calls to the bac
 
 ### Key Notes
 
+TODO: Updated to match current schema, expand further
+
 ## Database
 
 The application uses PostgreSQL as its database with the following structure:
