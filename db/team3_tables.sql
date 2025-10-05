@@ -30,6 +30,7 @@ create table sheets (
 	created_by int not null references users(id) on delete set null,
 	model int not null refernces models(id) on delete set null,
 	title varchar(200) not null,
+	artist varchar(40) not null,
 	description varchar(400),
 	num_downloads int not null default 0,
 	instrument varchar(20) not null,
