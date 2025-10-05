@@ -5,14 +5,15 @@ create table users (
 	password varchar(200) not null,
 	is_admin boolean default false,
 	created_at timestamp default CURRENT_TIMESTAMP,
-	last_logged_in timestamp default CURRENT_TIMESTAMP
+	last_logged_in timestamp default CURRENT_TIMESTAMP,
+	deleted boolean not null default false
 );
 
 create table models (
 	id serial primary key,
 	name varchar(20) not null,
 	tfjs null, -- NOTE: type TBD
-	description varcar(400),
+	description varcar(400) default '',
 	created_at timestamp default CURRENT_TIMESTAMP
 );
 
@@ -29,9 +30,9 @@ create table sheets (
 	id serial primary key,
 	created_by int not null references users(id) on delete set null,
 	model int not null refernces models(id) on delete set null,
-	title varchar(200) not null,
-	artist varchar(40) not null,
-	description varchar(400),
+	title varchar(200) not null default 'Untitled',
+	artist varchar(40) not null default 'Various Artists',
+	description varchar(400) default '',
 	num_downloads int not null default 0,
 	instrument varchar(20) not null,
 	musicxml varchar, -- NOTE: size TBD
@@ -39,6 +40,7 @@ create table sheets (
 	visibility visibility not null default 'public',
 	created_at timestamp default CURRENT_TIMESTAMP,
 	updated_at timestamp default CURRENT_TIMESTAMP,
+	deleted boolean not null default false
 );
 
 create table downloaded_by (
@@ -64,7 +66,8 @@ create table comments (
 	created_at timestamp default CURRENT_TIMESTAMP,
 	num_likes int not null default 0,
 	updated_at timestamp default CURRENT_TIMESTAMP,
-	content varchar(300) not null
+	content varchar(300) not null,
+	deleted boolean not null default false
 );
 
 create table comment_likes (
