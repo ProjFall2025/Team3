@@ -5,9 +5,17 @@ create table users (
 	password varchar(200) not null,
 	is_admin boolean default false,
 	is_locked boolean default false,
+	num_failed_attempts int default 0,
 	created_at timestamp default CURRENT_TIMESTAMP,
 	last_logged_in timestamp default CURRENT_TIMESTAMP,
 	deleted boolean not null default false
+);
+
+create table login_attmepts (
+	id serial primary key,
+	user_id int references users(id) on delete cascade,
+	ip_address varchar(40),
+	attempted_on timestamp default CURRENT_TIMESTAMP
 );
 
 create table models (

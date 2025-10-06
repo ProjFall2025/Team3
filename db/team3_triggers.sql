@@ -29,6 +29,28 @@ create or replace function num_likes_plpl()
 	end;
 	$$
 
+-- Trigger function to update the number of login attempts for a user.
+-- NOTE: checking for u.num_failed_attempts +1 because query checks for the most recent -1 value of num_failed_attempts.
+create or replace function check_num_attempts()
+	returns trigger
+	language PLPGSQL
+	as
+	$$
+	begin
+		update users u
+		set 
+			num_failed_attempts = case when new.password = u.password then 0 else u.num_failed_attempts + 1 end,
+			is_locked = case when (u.num_failed_attempts + 1) = 5 then true else false end
+		where u.id = new.user_id;
+
+		return new;
+	end;
+	$$
+
+
+create trigger incr_failed_attempts
+	after insert on login_attempts
+	for each row execute function check_num_attempts();
 
 create trigger incr_num_downloads
 	after insert on downloaded_by
