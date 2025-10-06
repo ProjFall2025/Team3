@@ -43,8 +43,9 @@ create table sheets (
 	deleted boolean not null default false
 );
 
-create table downloaded_by (
-    sheet_id int primary key references sheets(id) on delete cascade,
+create table sheet_downloads (
+	id serial primary key,
+    sheet_id int not null references sheets(id) on delete cascade,
     user_id int not null references users(id) on delete cascade,
 	downloaded_on timestamp default CURRENT_TIMESTAMP
 );
@@ -73,5 +74,6 @@ create table comments (
 create table comment_likes (
     user_id int not null references users(id) on delete cascade,
     comment_id int not null references comments(id) on delete cascade,
+	liked_on timestamp default CURRENT_TIMESTAMP,
     primary key (user_id, comment_id)
 );
