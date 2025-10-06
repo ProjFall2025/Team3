@@ -1,15 +1,32 @@
 # Knowtes
 
-## \#WhatTheSheet?!?!??
+## Database
 
 ### By Michael Brukson, Anthony Nosoff, and Michael Tesis
 
-## Our Mission
+## Entities & Attributes
 
-Our goal is to simplify access to sheet music by automating the transcription process. Traditionally, transcribing music requires a practiced ear and significant expertise, making it challenging for many novice musicians and enthusiasts. By using technology to transcribe music, we make music creation and enjoyment more accessible to everyone, regardless of their skills. <br>
-**Let's make music more accessible.**
+- users
+  - Attributes:
+  id: serial 
+  username: varchar(50)
+  email: varchar(50)
+  password: varchar(200)
+  is_admin: boolean
+  created_at: timestamp
+  deleted: boolean 
 
-## Target Users
+  - Primary key (PK) and foreign keys (FK) 
+  PK: id
+
+  - Constraints
+  id: UNIQUE
+  username: NOT NULL
+  email: NOT NULL
+  password: NOT NULL
+  deleted: NOT NULL
+
+## ER Diagram
 
 Our site will serve the following user groups:
 
@@ -46,7 +63,7 @@ Our site will serve the following user groups:
 - _How our site supports them_:  
   Converts songs to music sheets for free and stores all of the created sheets in the user's history.
 
-## Main Features
+## Database Schema
 
 1. Audio-to-Sheet Music Transcription <br>
    Users can upload audio files (mp3/wav) and receive transcribed sheet music for a detected or specified instrument. <br>
@@ -96,7 +113,7 @@ Our site will serve the following user groups:
    Alignment: Supports learning, collaboration, and continuous enhancement. <br>
    **USP**: Crowdsourced accuracy and feedback. <br>
 
-## Preliminary Development Plan
+## UML Class Diagram
 
 ### Research & Analysis
 
@@ -183,81 +200,9 @@ We will create a test plan consisting of the test cases corresponding to each us
 
 Multiple development channels (alpha, beta, release) implemented as Git branches will be used to separate stable releases from experimental feature platforms and non-thoroughly-tested versions, following the test protocols above. In the event that servers for the application are not running, an automatic restart can be attempted. If failed, features such as AWS CloudWatch or its analogs can alert the team of such events. Bug reporting information will be included in application settings.
 
-## Project Description
+## Brief explanation of how schema supports site functionalities
 
 Knowtes is a music recognition software. Users can upload an mp3 file or a wav file and the software will give the user the transcribed sheet music for that song. Alternatively, users may also request a song's transcription via its name directly; upon which the software will make an external API call for that song.
-
-## Project Structure
-
-## Requirements
-
-## Installation
-
-### Prerequisites
-
-- Node.js (version 14 or higher)
-- npm (comes with Node.js)
-
-### Getting Started
-
-1. **Clone the repository**
-
-   ```bash
-   git clone https://github.com/ProjFall2025/Team3.git
-   cd Team3
-   ```
-
-2. **Install backend dependencies**
-
-   ```bash
-   npm install
-   ```
-
-3. **Install frontend dependencies**
-
-   ```bash
-   cd app
-   npm install
-   cd ..
-   ```
-
-4. **Build the React application**
-
-   ```bash
-   npm run build-react
-   ```
-
-5. **Start the development server**
-
-   ```bash
-   npm run dev
-   ```
-
-6. **Access the application**
-   - Open your browser and navigate to `http://localhost:8080`
-   - The API endpoint is available at `http://localhost:8080/api/test`
-
-### Development Mode
-
-For development with hot reloading:
-
-1. **Start the backend server** (in one terminal):
-
-   ```bash
-   npm run dev
-   ```
-
-2. **Start the React development server** (in another terminal):
-   ```bash
-   cd app
-   npm start
-   ```
-
-The React app will run on `http://localhost:3000` and proxy API calls to the backend.
-
-### Key Notes
-
-TODO: Updated to match current schema, expand further
 
 ## Database
 
