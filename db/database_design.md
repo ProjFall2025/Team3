@@ -6,25 +6,27 @@
 
 ## Entities & Attributes
 
-- users
-  - Attributes:
-  id: serial 
-  username: varchar(50)
-  email: varchar(50)
-  password: varchar(200)
-  is_admin: boolean
-  created_at: timestamp
-  deleted: boolean 
+- **users**
+  - Attributes: 
+    id: serial 
+    username: varchar(50)
+    email: varchar(50)
+    password: varchar(200)
+    is_admin: boolean
+    is_locked: boolean
+    num_failed_attempts: int
+    created_at: timestamp
+    deleted: boolean 
 
   - Primary key (PK) and foreign keys (FK) 
-  PK: id
+    PK: id
 
   - Constraints
-  id: UNIQUE
-  username: NOT NULL
-  email: NOT NULL
-  password: NOT NULL
-  deleted: NOT NULL
+    id: UNIQUE
+    username: NOT NULL, UNIQUE
+    email: NOT NULL
+    password: NOT NULL
+    deleted: NOT NULL
 
 ## ER Diagram
 
