@@ -8,7 +8,8 @@
 
 - **users**
   - Attributes: 
-    - id: serial 
+    <br>
+    id: serial 
     username: varchar(50)
     email: varchar(50)
     password: varchar(200)
