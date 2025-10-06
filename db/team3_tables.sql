@@ -1,9 +1,10 @@
 create table users (
 	id serial primary key,
-	username varchar(50) not null,
+	username varchar(50) not null unique,
 	email varchar(50) not null,
 	password varchar(200) not null,
 	is_admin boolean default false,
+	is_locked boolean default false,
 	created_at timestamp default CURRENT_TIMESTAMP,
 	last_logged_in timestamp default CURRENT_TIMESTAMP,
 	deleted boolean not null default false
