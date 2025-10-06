@@ -8,15 +8,15 @@
 
 - **users**
   - Attributes: 
-    -id: serial 
-    -username: varchar(50)
-    -email: varchar(50)
-    -password: varchar(200)
-    -is_admin: boolean
-    -is_locked: boolean
-    -num_failed_attempts: int
-    -created_at: timestamp
-    -deleted: boolean 
+    - id: serial 
+    username: varchar(50)
+    email: varchar(50)
+    password: varchar(200)
+    is_admin: boolean
+    is_locked: boolean
+    num_failed_attempts: int
+    created_at: timestamp
+    deleted: boolean 
 
   - Primary key (PK) and foreign keys (FK) 
     PK: id
