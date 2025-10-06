@@ -202,26 +202,4 @@ Multiple development channels (alpha, beta, release) implemented as Git branches
 
 ## Brief explanation of how schema supports site functionalities
 
-Knowtes is a music recognition software. Users can upload an mp3 file or a wav file and the software will give the user the transcribed sheet music for that song. Alternatively, users may also request a song's transcription via its name directly; upon which the software will make an external API call for that song.
 
-## Database
-
-The application uses PostgreSQL as its database with the following structure:
-
-### Tables
-
-- **users:** Stores user account information including username, email, password, admin status, and creation timestamp
-- **sheets:** Stores transcribed sheet music with metadata including title, description, visibility settings, and creation/updated timestamps
-- **user_follows:** Association table that relates a user to their follower(s).
-
-### Functions
-
-- **update_updated_at:** Trigger function that modifies a sheets entity's "updated_at" column with the time of the request.
-
-### Triggers
-
-- **update_sheets_time:** before UPDATE on sheets table, calls the trigger function update_updated_at on all affected rows
-
-### Database Diagram
-
-![database diagram](db/Team3_dbdiagram.svg)
