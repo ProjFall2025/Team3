@@ -28,42 +28,144 @@
     password: NOT NULL <br>
     deleted: NOT NULL
 
+- **sheets**
+  - Attributes: <br>
+    id: serial <br>
+    created_by: int <br>
+    model: int <br>
+    title: varchar(200) <br>
+    artists: varchar(40) <br>
+    description: varchar(400) <br>
+    num_downloads: int <br>
+    instrument: varchar(20) <br>
+    musicxml: varchar <br>
+    comments_enabled: boolean <br>
+    visibility: enum <br>
+    created_at: timestamp <br>
+    updated_at: timestamp <br>
+    deleted: boolean 
+
+  - Primary key (PK) and foreign keys (FK) <br>
+    PK: id <br>
+    FK: created_by, model
+
+  - Constraints <br>
+    id: UNIQUE <br>
+    created_by: NOT NULL <br>
+    model: NOT NULL <br>
+    title: NOT NULL <br>
+    artist: NOT NULL <br>
+    num_downlaods: NOT NULL <br>
+    instrument: NOT NULL <br>
+    deleted: NOT NULL
+
+- **comments**
+  - Attributes: <br>
+    id: serial <br>
+    sheet: int <br>
+    created_by: int <br>
+    created_at: timestamp <br>
+    updated_at: timestamp <br>
+    content: varchar(300) <br>
+    deleted: boolean 
+
+  - Primary key (PK) and foreign keys (FK) <br>
+    PK: id <br>
+    FK: sheet, created_by
+
+  - Constraints <br>
+    id: UNIQUE <br>
+    sheet: NOT NULL <br>
+    created_by: NOT NULL <br>
+    content: NOT NULL <br>
+    deleted: NOT NULL
+
+- **models**
+  - Attributes: <br>
+    id: serial <br>
+    name: varchar(20) <br>
+    tjfs: varchar(10) <br>
+    description: varchar(400) <br>
+    created_at: timestamp
+
+  - Primary key (PK) and foreign keys (FK) <br>
+    PK: id
+
+  - Constraints <br>
+    id: UNIQUE <br>
+    name: NOT NULL <br>
+    tjfs: NOT NULL
+
+- **sheet_ratings**
+  - Attributes: <br>
+    user_id: int <br>
+    sheet_id: int <br>
+    rating: float <br>
+    created_at: timestamp <br>
+    updated_at: timestamp
+
+  - Primary key (PK) and foreign keys (FK) <br>
+    FK: user_id, sheet_id
+
+  - Constraints <br>
+    rating: NOT NULL
+
+- **sheet_downloads**
+  - Attributes: <br>
+    id: serial <br>
+    sheet_id: int <br>
+    user_id: int <br>
+    downloaded_on: timestamp
+
+  - Primary key (PK) and foreign keys (FK) <br>
+    PK: id <br>
+    FK: sheet_id, user_id
+
+  - Constraints <br>
+    id: UNIQUE <br>
+    sheet_id: NOT NULL <br>
+    user_id: NOT NULL
+
+- **comment_likes**
+  - Attributes: <br>
+    user_id: int <br>
+    comment_id: int <br>
+    liked_on: timestamp
+
+  - Primary key (PK) and foreign keys (FK) <br>
+    FK: user_id, comment_id
+
+  - Constraints <br>
+
+  - **user_follows**
+  - Attributes: <br>
+    follower: int <br>
+    followee: int
+
+  - Primary key (PK) and foreign keys (FK) <br>
+    FK: follower, followee
+
+  - Constraints <br>
+    follower: NOT NULL <br>
+    followee: NOT NULL
+
+- **login_attempts**
+  - Attributes: <br>
+    id: serial <br>
+    user_id: int <br>
+    ip_address: varchar(40) <br>
+    attempted_on: timestamp
+
+  - Primary key (PK) and foreign keys (FK) <br>
+    PK: id <br>
+    FK: user_id
+
+  - Constraints <br>
+    id: UNIQUE <br>
+
 ## ER Diagram
 
-Our site will serve the following user groups:
-
-1. **Music Students and Learners**
-
-- _Demographics and interests_:  
-  Teenagers to young adults learning how to play instruments professionally or amateurly interested in connecting the songs they enjoy to music theory.
-
-- _What they need from our site_:  
-  The sheet music created by our site for a song they want to reproduce.
-
-- _How our site supports them_:  
-  Converts audio provided by them into sheet notation. It also helps them make the connection between listening and reading music.
-
-2. **Composers and Songwriters**
-
-- _Demographics and interests_:  
-  Adults professionally involved in the music industry at all levels who want to record original music or arrange existing music in a new way.
-
-- _What they need from our site_:  
-  The creation of separate music sheets for different instruments used in a song. Also, connection to other musicians with similar music interests.
-
-- _How our site supports them_:  
-  Automates the time consuming process of recording music into a music sheet. Separates the music sheets by the instuments used in the song. Recommends other site users that work with similar music.
-
-3. **Music Teachers**
-
-- _Demographics and interests_:  
-  Adults that teach music publicly or privately that are interested in creating a protfolio of note sheets for songs they use for teaching.
-
-- _What they need from our site_:  
-  A free and easy way to obtain sheet music for songs they want to teach. Also, the history of the songs they requested on the site to create an educational plan and lessons.
-
-- _How our site supports them_:  
-  Converts songs to music sheets for free and stores all of the created sheets in the user's history.
+![alt text](Team3_dbdiagram.png)
 
 ## Database Schema
 
