@@ -169,53 +169,94 @@
 
 ## Database Schema
 
-1. Audio-to-Sheet Music Transcription <br>
-   Users can upload audio files (mp3/wav) and receive transcribed sheet music for a detected or specified instrument. <br>
-   EPIC: Automates a complex, expert-only process, making sheet music creation accessible to all skill levels. <br>
-   Alignment: Directly supports learners, composers, and teachers by simplifying transcription. <br>
-   **USP**: Fast, automated, multi-instrument transcription.
+create table users (
+	id serial primary key,
+	username varchar(50) not null unique,
+	email varchar(50) not null,
+	password varchar(200) not null,
+	is_admin boolean default false,
+	is_locked boolean default false,
+	num_failed_attempts int default 0,
+	created_at timestamp default CURRENT_TIMESTAMP,
+	last_logged_in timestamp default CURRENT_TIMESTAMP,
+	deleted boolean not null default false
+);
 
-2. Recent Transcriptions Dashboard <br>
-   Users see their most recently transcribed audio and sheet music. <br>
-   EPIC: Provides instant feedback and easy access to new work. <br>
-   Alignment: Helps users track progress and revisit recent creations. <br>
-   **USP**: Personalized, real-time updates. <br>
+create table login_attmepts (
+	id serial primary key,
+	user_id int references users(id) on delete cascade,
+	ip_address varchar(40),
+	attempted_on timestamp default CURRENT_TIMESTAMP
+);
 
-3. User Sheet Music History <br>
-   Users can view all past sheet music they've transcribed. <br>
-   EPIC: Builds a personal library for learning, teaching, or composing. <br>
-   Alignment: Supports educational planning and creative archiving. <br>
-   **USP**: Persistent, searchable user history. <br>
+create table models (
+	id serial primary key,
+	name varchar(20) not null,
+	tfjs varchar(10) default null, -- NOTE: type TBD
+	description varchar(400) default '',
+	created_at timestamp default CURRENT_TIMESTAMP
+);
 
-4. Social Following System <br>
-   Users can follow other registered users. <br>
-   EPIC: Fosters a music community for collaboration and inspiration. <br>
-   Alignment: Connects users with similar interests, supporting networking. <br>
-   **USP**: Social features tailored for musicians. <br>
+create table user_follows (
+	follower int not null references users(id) on delete cascade,
+	followee int not null references users(id) on delete cascade,
+	primary key (follower, followee),
+	check (follower <> followee)
+);
 
-5. Song Transcriber List <br>
-   See all users who have transcribed a specific song. <br>
-   EPIC: Encourages discovery and comparison of interpretations. <br>
-   Alignment: Enables peer learning and community engagement. <br>
-   **USP**: Collaborative sheet music ecosystem. <br>
+create type visibility as enum ('public', 'private', 'follower');
 
-6. Instrument-Based Transcription Search <br>
-   View all transcriptions for a particular instrument. <br>
-   EPIC: Makes it easy to find relevant sheet music for specific instruments. <br>
-   Alignment: Supports targeted learning and arrangement. <br>
-   **USP**: Instrument-centric search and filtering. <br>
+create table sheets (
+	id serial primary key,
+	created_by int references users(id) on delete set null,
+	model int references models(id) on delete set null,
+	title varchar(200) not null default 'Untitled',
+	artist varchar(40) not null default 'Various Artists',
+	description varchar(400) default '',
+	num_downloads int not null default 0,
+	instrument varchar(20) not null,
+	musicxml varchar, -- NOTE: size TBD
+	comments_enabled boolean default true,
+	visibility visibility not null default 'public',
+	created_at timestamp default CURRENT_TIMESTAMP,
+	updated_at timestamp default CURRENT_TIMESTAMP,
+	deleted boolean not null default false
+);
 
-7. Multi-Format Export (PDF, MIDI, MusicXML) <br>
-   Export transcribed sheet music in various formats for printing, editing, or playback. <br>
-   EPIC: Maximizes usability across devices and workflows. <br>
-   Alignment: Meets diverse user needs for sharing, teaching, and performing. <br>
-   **USP**: Flexible, professional-grade export options. <br>
+create table sheet_downloads (
+	id serial primary key,
+    sheet_id int not null references sheets(id) on delete cascade,
+    user_id int not null references users(id) on delete cascade,
+	downloaded_on timestamp default CURRENT_TIMESTAMP
+);
 
-8. Commenting and Rating System <br>
-   Users can comment on and rate transcriptions to provide feedback and improve accuracy. <br>
-   EPIC: Drives quality improvement and community interaction. <br>
-   Alignment: Supports learning, collaboration, and continuous enhancement. <br>
-   **USP**: Crowdsourced accuracy and feedback. <br>
+create table sheet_ratings (
+    user_id int not null references users(id) on delete cascade,
+    sheet_id int not null references sheets(id) on delete cascade,
+    rating float not null default 0.0 check (rating between 0.0 and 5.0),
+    created_at timestamp default CURRENT_TIMESTAMP,
+    updated_at timestamp default CURRENT_TIMESTAMP,
+    primary key (user_id, sheet_id)
+);
+
+-- Comments table, M-1 with sheets
+create table comments (
+	id serial primary key,
+	sheet int not null references sheets(id) on delete cascade,
+	created_by int references users(id) on delete set null,
+	created_at timestamp default CURRENT_TIMESTAMP,
+	num_likes int not null default 0,
+	updated_at timestamp default CURRENT_TIMESTAMP,
+	content varchar(300) not null,
+	deleted boolean not null default false
+);
+
+create table comment_likes (
+    user_id int not null references users(id) on delete cascade,
+    comment_id int not null references comments(id) on delete cascade,
+	liked_on timestamp default CURRENT_TIMESTAMP,
+    primary key (user_id, comment_id)
+);
 
 ## UML Class Diagram
 
