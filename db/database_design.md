@@ -26,7 +26,7 @@
     username: NOT NULL, UNIQUE <br>
     email: NOT NULL <br>
     password: NOT NULL <br>
-    deleted: NOT NULL
+    deleted: NOT NULL, ON DELETE set to true
 
 - **sheets**
   - Attributes: <br>
@@ -57,7 +57,7 @@
     artist: NOT NULL <br>
     num_downlaods: NOT NULL <br>
     instrument: NOT NULL <br>
-    deleted: NOT NULL
+    deleted: NOT NULL, ON DELETE set to true
 
 - **comments**
   - Attributes: <br>
@@ -78,7 +78,7 @@
     sheet: NOT NULL <br>
     created_by: NOT NULL <br>
     content: NOT NULL <br>
-    deleted: NOT NULL
+    deleted: NOT NULL, ON DELETE set to true
 
 - **models**
   - Attributes: <br>
