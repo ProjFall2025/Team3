@@ -176,7 +176,7 @@ create table users (
 	username varchar(50) not null unique,
 	email varchar(50) not null,
 	password varchar(200) not null,
-  bio varchar(400) default '',
+	bio varchar(400) default '',
 	is_admin boolean default false,
 	is_locked boolean default false,
 	num_failed_attempts int default 0,
