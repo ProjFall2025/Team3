@@ -137,7 +137,7 @@
 
   - Constraints <br>
 
-  - **user_follows**
+- **user_follows**
   - Attributes: <br>
     follower: int <br>
     followee: int
