@@ -37,8 +37,8 @@ create type visibility as enum ('public', 'private', 'follower');
 
 create table sheets (
 	id serial primary key,
-	created_by int not null references users(id) on delete set null,
-	model int not null references models(id) on delete set null,
+	created_by int references users(id) on delete set null,
+	model int references models(id) on delete set null,
 	title varchar(200) not null default 'Untitled',
 	artist varchar(40) not null default 'Various Artists',
 	description varchar(400) default '',
