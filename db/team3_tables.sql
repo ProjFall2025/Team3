@@ -71,7 +71,7 @@ create table sheet_ratings (
 -- Comments table, M-1 with sheets
 create table comments (
 	id serial primary key,
-	sheet int references sheets(id) on delete cascade,
+	sheet int not null references sheets(id) on delete cascade,
 	created_by int references users(id) on delete set null,
 	created_at timestamp default CURRENT_TIMESTAMP,
 	num_likes int not null default 0,
