@@ -12,6 +12,7 @@
     username: varchar(50) <br>
     email: varchar(50) <br>
     password: varchar(200) <br>
+    bio: varchar(400) <br>
     is_admin: boolean <br>
     is_locked: boolean <br>
     num_failed_attempts: int <br>
@@ -175,6 +176,7 @@ create table users (
 	username varchar(50) not null unique,
 	email varchar(50) not null,
 	password varchar(200) not null,
+  bio varchar(400) default '',
 	is_admin boolean default false,
 	is_locked boolean default false,
 	num_failed_attempts int default 0,
