@@ -63,7 +63,7 @@ create trigger incr_num_likes
 
 -- View to see a sheet with its average rating
 create materialized view sheets_with_rating as
-select s.*, coalesce(avg(r.rating),0) as avg_rating -- caolesce() here assigns 0 to sheets with 0 ratings
+select s.*, coalesce(avg(r.rating),0) as avg_rating -- coalesce() here assigns 0 to sheets with 0 ratings
 from sheets s
 left join sheet_ratings r on s.id = r.sheet_id
 group by s.id;
