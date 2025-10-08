@@ -29,6 +29,21 @@ create or replace function num_likes_plpl()
 	end;
 	$$
 
+-- Trigger function to update the number of likes on a comment. Name comes from i-- / --i, decrementing by one.
+create or replace function num_likes_mimi()
+	returns trigger
+	language PLPGSQL
+	as
+	$$
+	begin
+		update comments c
+		set num_likes = num_likes - 1
+		where c.id = new.comment_id;
+
+		return new;
+	end;
+	$$
+
 -- Trigger function to update the number of login attempts for a user.
 -- NOTE: checking for u.num_failed_attempts +1 because query checks for the most recent -1 value of num_failed_attempts.
 create or replace function check_num_attempts()
@@ -59,6 +74,10 @@ create trigger incr_num_downloads
 create trigger incr_num_likes
 	after insert on comment_likes
 	for each row execute function num_likes_plpl();
+
+create trigger decr_num_likes
+	after delete on comment_likes
+	for each row execute function num_likes_mimi();
 
 
 -- View to see a sheet with its average rating
