@@ -228,18 +228,18 @@ create table sheets (
 
 create table sheet_downloads (
 	id serial primary key,
-    sheet_id int not null references sheets(id) on delete cascade,
-    user_id int not null references users(id) on delete cascade,
+  sheet_id int not null references sheets(id) on delete cascade,
+  user_id int not null references users(id) on delete cascade,
 	downloaded_on timestamp default CURRENT_TIMESTAMP
 );
 
 create table sheet_ratings (
-    user_id int not null references users(id) on delete cascade,
-    sheet_id int not null references sheets(id) on delete cascade,
-    rating float not null default 0.0 check (rating between 0.0 and 5.0),
-    created_at timestamp default CURRENT_TIMESTAMP,
-    updated_at timestamp default CURRENT_TIMESTAMP,
-    primary key (user_id, sheet_id)
+  user_id int not null references users(id) on delete cascade,
+  sheet_id int not null references sheets(id) on delete cascade,
+  rating float not null default 0.0 check (rating between 0.0 and 5.0),
+  created_at timestamp default CURRENT_TIMESTAMP,
+  updated_at timestamp default CURRENT_TIMESTAMP,
+  primary key (user_id, sheet_id)
 );
 
 -- Comments table, M-1 with sheets
@@ -255,10 +255,10 @@ create table comments (
 );
 
 create table comment_likes (
-    user_id int not null references users(id) on delete cascade,
-    comment_id int not null references comments(id) on delete cascade,
-	liked_on timestamp default CURRENT_TIMESTAMP,
-    primary key (user_id, comment_id)
+  user_id int not null references users(id) on delete cascade,
+  comment_id int not null references comments(id) on delete cascade,
+  liked_on timestamp default CURRENT_TIMESTAMP,
+  primary key (user_id, comment_id)
 );
 ```
 
@@ -266,6 +266,12 @@ create table comment_likes (
 
 ![alt text](Knowtes_Class_Diagram.png)
 
-## Brief explanation of how schema supports site functionalities
+## How the Schema Supports Site Functionalities
 
+The above schema is the backbone of our application, since it stores all the relevant information of classes representing the core application functions and audience (the users). The main three classes that this schema covers are the users, sheets, and models. <br/>
 
+The users class also has supplementary tables for normalization, such as user_follows (tracking who users follow), sheet_downloads, sheet_ratings, comments (for each sheet), comment_likes, and login_attempts (tracking user logins in and whether they failed). These classes were implemented such that corresponding data can be stored as atomically as possible, reducing database size and eliminating insertions that lead to redundant information. <br/>
+
+An example of our schema in action is the comment_likes class, which supplements the comments class that falls under sheets and which are populated by users. When a user likes a comment on a sheet, only the user ID, comment ID, and time of the comment are logged. This in turn links to a user, as well as a comment in a comments table, which links to a sheet which the comment was made on. No redundant information about the user, comments, or sheets are needed beyond the user and comment IDs. <br/>
+
+As exceptions, there are three columns that have been de-normalized in this schema, which are the num_likes, num_downloads, and num_failed_attempts. This is meant to simplify quantitative calls to the database and reduce the number of insertion operations on the table for better load handling at scale. Each of these attributes has a corresponding trigger function that increments the aggregate number by one (or removes if applicable, such as for removing likes). For averages, such as average_rating, a coalesce function helps to make that aggregation.
