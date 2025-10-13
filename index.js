@@ -2,17 +2,27 @@ const express = require('express');
 const path = require('path');
 const app = express();
 
+app.use(express.json())
+
+var login = require('./routes/login')
+app.use(login);
+
+// var comments = require('./routes/comments')
+// app.use(comment);
+
+var users = require('./routes/users')
+app.use(users);
+
+var sheets = require('./routes/sheets')
+app.use(sheets);
+
+
 app.use(express.static(path.join(__dirname, 'app/build')));
 
 const ROOT_HTML = path.join(__dirname, 'app/build/index.html');
 
 // React Router
 // import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-
-// API routes
-app.get('/api/test', (req, res) => {
-    res.json({ message: 'Backend connected successfully!' });
-});
 
 // React app
 const routes = ['/', '/about', '/login'];
