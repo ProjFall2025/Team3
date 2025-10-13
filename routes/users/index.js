@@ -72,7 +72,7 @@ app.patch('/api/users/:id', (req, res) => {
 app.delete('/api/users/:id', (req, res) => {
   const id = parseInt(req.params.id);
   pool.query(
-    'update users set deleted = true where id = $1 and deleted = false returning *',
+    'delete from users where id = $1 returning *',
     [id],
     (error, results) => {
       if (error) {
