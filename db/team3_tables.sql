@@ -12,7 +12,7 @@ create table users (
 	deleted boolean not null default false
 );
 
-create table login_attmepts (
+create table login_attempts (
 	id serial primary key,
 	user_id int references users(id) on delete cascade,
 	ip_address varchar(40),

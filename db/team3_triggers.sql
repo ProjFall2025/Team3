@@ -68,7 +68,7 @@ create trigger incr_failed_attempts
 	for each row execute function check_num_attempts();
 
 create trigger incr_num_downloads
-	after insert on downloaded_by
+	after insert on sheet_downloads
 	for each row execute function num_downloads_plpl();
 
 create trigger incr_num_likes
