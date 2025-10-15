@@ -78,3 +78,5 @@ for each row execute function _soft_delete_comment();
 
 -- alter table users disable trigger trig_soft_delete_comment;
 -- alter table users enable trigger trig_soft_delete_comment;
+
+-- TODO: Add comment cascade on user delete
