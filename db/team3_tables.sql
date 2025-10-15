@@ -15,6 +15,7 @@ create table users (
 create table login_attempts (
 	id serial primary key,
 	user_id int references users(id) on delete cascade,
+	succeeded boolean not null,
 	ip_address varchar(40),
 	attempted_on timestamp default CURRENT_TIMESTAMP
 );

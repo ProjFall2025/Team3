@@ -56,8 +56,12 @@ create or replace function check_num_attempts() returns trigger as
 	begin
 		update users u
 		set 
-			num_failed_attempts = case when new.password = u.password then 0 else u.num_failed_attempts + 1 end,
-			is_locked = case when (u.num_failed_attempts + 1) = 5 then true else false end
+			num_failed_attempts = case when new.succeeded then 0 else u.num_failed_attempts + 1 end,
+			is_locked = case 
+				when new.succeeded then false
+				when (u.num_failed_attempts + 1) >= 5 then true else 
+				false 
+			end
 		where u.id = new.user_id;
 
 		return new;
