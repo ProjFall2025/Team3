@@ -17,8 +17,58 @@ app.get('/api/users/:id', (req, res) => {
 });
 
 
+// get all of users followers
+app.get('/api/users/following/:id', (req, res) => {
+  const id = parseInt(req.params.id);
+  pool.query(
+    'select u.* from user_follows uf, users u where followee = $1 and follower = u.id', [id],
+    (error, results) => {
+      if (error) {
+        res.status(500).json({ error: error.message });
+      } else {
+        res.status(201).json(results.rows);
+      }
+    }
+  );
+});
+
+
+// get all of users sheets
+app.get('/api/users/sheets/:id', (req, res) => {
+  const id = parseInt(req.params.id);
+  pool.query(
+    'select * from sheets where created_by = $1', [id],
+    (error, results) => {
+      if (error) {
+        res.status(500).json({ error: error.message });
+      } else {
+        res.status(201).json(results.rows);
+      }
+    }
+  );
+});
+
+
+// follow another user
+app.post('/api/users/follow', (req, res) => {
+  const { follower,followee } = req.body;
+  pool.query(
+    'insert into user_follows (follower, followee) values ($1, $2) returning *',
+    [ follower, followee ],
+    (error, results) => {
+      if (error) {
+        res.status(500).json({ error: error.message });
+      } else {
+        res.status(201).json(results.rows[0]);
+      }
+    }
+  );
+});
+
+
 // update user
-app.put('/api/users/restore/:id', (req, res) => {
+// MARK: test route, probably redo
+app.patch('/api/users/:id', (req, res) => {
   const id = parseInt(req.params.id);
   const { username, email, password, bio } = req.body;
   pool.query(
@@ -37,7 +87,7 @@ app.put('/api/users/restore/:id', (req, res) => {
 });
 
 // make user admin
-app.put('/api/users/mkadmin/:id', (req, res) => {
+app.patch('/api/users/mkadmin/:id', (req, res) => {
   const id = parseInt(req.params.id);
   pool.query(
     'update users set is_admin = true where id = $1 and deleted = false returning *', [id], (error, results) => {
@@ -53,7 +103,8 @@ app.put('/api/users/mkadmin/:id', (req, res) => {
 });
 
 // restore user
-app.patch('/api/users/:id', (req, res) => {
+// MARK: test route, maybe redo
+app.patch('/api/users/restore/:id', (req, res) => {
   const id = parseInt(req.params.id);
   pool.query(
     'update users set deleted = false where id = $1 returning *', [id], (error, results) => {

@@ -7,8 +7,8 @@ app.use(express.json())
 var login = require('./routes/login')
 app.use(login);
 
-// var comments = require('./routes/comments')
-// app.use(comment);
+var comments = require('./routes/comments')
+app.use(comments);
 
 var users = require('./routes/users')
 app.use(users);
