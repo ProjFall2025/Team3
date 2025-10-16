@@ -30,9 +30,9 @@ app.get(routes, (req, res) => { res.sendFile(ROOT_HTML); });
 
 
 // start server
-const PORT = process.env.PORT || 8080;
-app.listen(PORT, () => {
-    console.log(`App listening on port ${PORT}`);
-    console.log(`Visit at: http://localhost:${PORT}/`)
+const PORT = process.env.PORT || 3000;
+let server = app.listen(PORT,() => {
+    const serverAddress = server.address();
+    console.log(`Visit at: http://${serverAddress.address}:${serverAddress.port}/`)
     console.log('Press Ctrl+C to quit.');
 });

@@ -8,7 +8,7 @@ app.post('/api/mksheet', (req, res) => {
     const { created_by, model, title, artist, description, instrument, visibility } = req.body;
     pool.query(
         'insert into sheets (created_by, model, title, artist, description, instrument, visibility) values ($1, $2, $3, $4, $5, $6, $7) returning *',
-        [created_by, model, title, artist, description || '', instrument, visibility || ''],
+        [created_by, model, title, artist, description || NaN, instrument, visibility || NaN],
         (error, results) => {
             if (error) {
                 res.status(500).json({ error: error.message });

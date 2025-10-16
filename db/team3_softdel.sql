@@ -1,3 +1,4 @@
+
 -- Trigger function to soft delete user
 create or replace function _soft_delete_user() returns trigger as
 	$$
@@ -7,11 +8,12 @@ create or replace function _soft_delete_user() returns trigger as
 		where id = old.id;
 		
 		perform _cascade_s_delete_sheet(old.id);
+		perform _users_cascade_s_delete_comment(old.id);
 
 		return null; -- return null prevents 'hard' deletion
 	end
 	$$ language PLPGSQL;
-	
+
 create trigger trig_soft_delete_user
 before delete on users
 for each row execute function _soft_delete_user();
@@ -24,6 +26,17 @@ create or replace function _cascade_s_delete_sheet(user_id integer) returns void
 	$$
 	begin
 		update sheets 
+		set deleted = true
+		where created_by = user_id;
+	end
+	$$ language PLPGSQL;
+
+	
+-- Helper function to cascade soft delete on soft delete of user to comment
+create or replace function _users_cascade_s_delete_comment(user_id integer) returns void as 
+	$$
+	begin
+		update comments 
 		set deleted = true
 		where created_by = user_id;
 	end
@@ -48,7 +61,7 @@ before delete on sheets
 for each row execute function _soft_delete_sheet();
 
 -- Helper function to cascade soft delete on soft delete of user to comment
-create or replace function _cascade_s_delete_comment(sheet_id integer) returns void as
+create or replace function _sheets_cascade_s_delete_comment(sheet_id integer) returns void as
 	$$
 	begin
 		update comments
