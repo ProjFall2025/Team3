@@ -4,18 +4,11 @@ const app = express();
 
 app.use(express.json())
 
-var login = require('./routes/login')
-app.use(login);
-
-var comments = require('./routes/comments')
-app.use(comments);
-
-var users = require('./routes/users')
-app.use(users);
-
-var sheets = require('./routes/sheets')
-app.use(sheets);
-
+const routeModules = ['login', 'comments', 'users', 'sheets', 'models'];
+routeModules.forEach(route => {
+    const modulePath = `./routes/${route}`;
+    app.use(require(modulePath));
+});
 
 app.use(express.static(path.join(__dirname, 'app/build')));
 
