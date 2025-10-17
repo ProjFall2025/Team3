@@ -3,7 +3,7 @@ var app = module.exports = express();
 const pool = require('../pool');
 
 // add a new comment
-app.post('/api/mkcomment', (req, res) => {
+app.post('/api/comments', (req, res) => {
   const { sheet, created_by, content } = req.body;
   pool.query(
     'insert into comments (sheet, created_by, content) values ($1, $2, $3) returning *',

@@ -4,7 +4,7 @@ const pool = require('../pool');
 
 
 // make a new sheet
-app.post('/api/mksheet', (req, res) => {
+app.post('/api/sheets', (req, res) => {
     const { created_by, model, title, artist, description, instrument, visibility } = req.body;
     pool.query(
         'insert into sheets (created_by, model, title, artist, description, instrument, visibility) values ($1, $2, $3, $4, $5, $6, $7) returning *',
@@ -91,4 +91,5 @@ app.patch('/api/sheets/:id', (req, res) => {
     );
 });
 
+// TODO: Add a get ratings route
 // NOTE: a 404 is not actually a 404, that is a logic error when doing the check (results.rows.length===0); nothing is sent back on delete.

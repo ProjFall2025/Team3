@@ -5,7 +5,7 @@ const pool = require('../pool');
 // get user by id
 app.get('/api/users/:id', (req, res) => {
   const id = parseInt(req.params.id);
-  pool.query('select * from users where id = $1 and deleted = false', [id], (error, results) => {
+  pool.query('select id, username, email, bio, is_admin, is_locked, created_at, last_logged_in from users where id = $1 and deleted = false', [id], (error, results) => {
     if (error) {
       res.status(500).json({ error: error.message });
     } else if (results.rows.length === 0) {

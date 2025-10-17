@@ -1,4 +1,5 @@
 var express = require('express');
+var bcrypt = require('bcrypt');
 var app = module.exports = express();
 const pool = require('../pool');
 
@@ -6,9 +7,10 @@ const pool = require('../pool');
 // register user
 app.post('/register', (req, res) => {
   const { username, email, password, bio } = req.body;
+  const password_hash = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
   pool.query(
-    'insert into users (username, email, password, bio) values ($1, $2, $3, $4) returning *',
-    [username, email, password, bio || ''],
+    'insert into users (username, email, password, bio) values ($1, $2, $3, $4) returning id, username, email, bio',
+    [username, email, password_hash, bio || ''],
     (error, results) => {
       if (error) {
         res.status(500).json({ error: error.message });
@@ -24,7 +26,7 @@ app.get('/validate/user', async (req, res) => {
   const { username, email } = req.body;
   try {
     const result = await pool.query(
-      `select id, is_locked from users where (username = $1 or email = $2) and deleted = false`,
+      `select id, password, is_locked from users where (username = $1 or email = $2) and deleted = false`,
       [username || '', email || '']
     );
     if (result.rows.length === 0) {
@@ -41,11 +43,12 @@ app.get('/validate/user', async (req, res) => {
 
 
 // validate password
+// TODO: instead of making a db call, just get the information from the previous page. (where we got the user.)
 app.get('/validate/password', async (req, res) => {
   const { id, password } = req.body;
   try {
     const result = await pool.query(`select id, password, num_failed_attempts from users where id = $1`, [id]);
-    if (!(result.rows[0]['password'] === password)) {
+    if (!bcrypt.compareSync(password, result.rows[0]['password'])) {
       pool.query(`insert into login_attempts (user_id, succeeded, ip_address) values ($1, $2, $3)`,
         [id, false, req.ip]);
       if (result.rows[0]['num_failed_attempts'] == 4){
@@ -55,6 +58,7 @@ app.get('/validate/password', async (req, res) => {
     }
     pool.query(`insert into login_attempts (user_id, succeeded, ip_address) values ($1, $2, $3)`,
       [id, true, req.ip]);
+    pool.query(`update users set last_logged_in = $2 where id = $1`, [id, new Date()]);
     res.status(200).json({ user: result.rows[0] });
   } catch (error) {
     res.status(500).json({ error: error.message });
