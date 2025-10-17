@@ -1,3 +1,4 @@
+
 -- Trigger function to update the number of downloads on a sheet. Name comes from i++ / ++i, incrementing by one.
 create or replace function num_downloads_plpl() returns trigger as
 	$$
@@ -81,3 +82,24 @@ group by s.id;
 
 CREATE UNIQUE INDEX idx_sheets_with_rating_id ON sheets_with_rating (id);
 REFRESH MATERIALIZED VIEW CONCURRENTLY sheets_with_rating;
+
+
+-- View to see top 10 sheets by num_downloads
+create materialized view ten_sheets_by_downloads as
+select *
+from sheets
+order by num_downloads desc
+limit 10;
+
+CREATE UNIQUE INDEX idx_ten_sheets_by_downloads ON ten_sheets_by_downloads (id);
+REFRESH MATERIALIZED VIEW CONCURRENTLY ten_sheets_by_downloads;
+
+-- View to see top 10 sheets by avg_rating
+create materialized view ten_sheets_by_rating as
+select *
+from sheets_with_rating
+order by avg_rating desc
+limit 10;
+
+CREATE UNIQUE INDEX idx_ten_sheets_by_downloads ON ten_sheets_by_downloads (id);
+REFRESH MATERIALIZED VIEW CONCURRENTLY ten_sheets_by_downloads;
