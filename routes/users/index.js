@@ -17,6 +17,23 @@ app.get('/api/users/:id', (req, res) => {
 });
 
 
+// follow another user
+app.post('/api/users/follow', (req, res) => {
+  const { follower,followee } = req.body;
+  pool.query(
+    'insert into user_follows (follower, followee) values ($1, $2) returning *',
+    [ follower, followee ],
+    (error, results) => {
+      if (error) {
+        res.status(500).json({ error: error.message });
+      } else {
+        res.status(201).json(results.rows[0]);
+      }
+    }
+  );
+});
+
+
 // get all of users followers
 app.get('/api/users/following/:id', (req, res) => {
   const id = parseInt(req.params.id);
@@ -49,17 +66,16 @@ app.get('/api/users/sheets/:id', (req, res) => {
 });
 
 
-// follow another user
-app.post('/api/users/follow', (req, res) => {
-  const { follower,followee } = req.body;
+// get all of users comments
+app.get('/api/users/comments/:id', (req, res) => {
+  const id = parseInt(req.params.id);
   pool.query(
-    'insert into user_follows (follower, followee) values ($1, $2) returning *',
-    [ follower, followee ],
+    'select * from comments where created_by = $1', [id],
     (error, results) => {
       if (error) {
         res.status(500).json({ error: error.message });
       } else {
-        res.status(201).json(results.rows[0]);
+        res.status(201).json(results.rows);
       }
     }
   );
@@ -86,6 +102,7 @@ app.patch('/api/users/:id', (req, res) => {
   );
 });
 
+
 // make user admin
 app.patch('/api/users/mkadmin/:id', (req, res) => {
   const id = parseInt(req.params.id);
@@ -101,6 +118,7 @@ app.patch('/api/users/mkadmin/:id', (req, res) => {
     }
   );
 });
+
 
 // restore user
 // MARK: test route, maybe redo
@@ -118,6 +136,7 @@ app.patch('/api/users/restore/:id', (req, res) => {
     }
   );
 });
+
 
 // soft delete user
 app.delete('/api/users/:id', (req, res) => {

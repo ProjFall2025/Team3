@@ -52,6 +52,63 @@ app.get('/api/sheets/:id', (req, res) => {
 });
 
 
+// get the comments for each sheet
+app.get('/api/sheets/comments/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+    pool.query('select * from comments where sheet = $1 and deleted = false', [id], (error, results) => {
+        if (error) {
+        res.status(500).json({ error: error.message });
+        } else if (results.rows.length === 0) {
+        res.status(404).json({ message: 'No sheets available' });
+        } else {
+        res.status(200).json(results.rows[0]);
+        }
+    });
+});
+
+
+// get average ratings of sheets
+app.get('/api/sheets/averages', (req, res) => {
+    pool.query('select * from sheets_with_rating where deleted = false', (error, results) => {
+        if (error) {
+        res.status(500).json({ error: error.message });
+        } else if (results.rows.length === 0) {
+        res.status(404).json({ message: 'No sheets available' });
+        } else {
+        res.status(200).json(results.rows[0]);
+        }
+    });
+});
+
+
+// get top ten sheets by num_downloads
+app.get('/api/sheets/topten/downloads', (req, res) => {
+    pool.query('select * from ten_sheets_by_downloads where deleted = false', (error, results) => {
+        if (error) {
+        res.status(500).json({ error: error.message });
+        } else if (results.rows.length === 0) {
+        res.status(404).json({ message: 'No sheets available' });
+        } else {
+        res.status(200).json(results.rows[0]);
+        }
+    });
+});
+
+
+// get top ten sheets by average rating
+app.get('/api/sheets/topten/averages', (req, res) => {
+    pool.query('select * from ten_sheets_by_rating where deleted = false', (error, results) => {
+        if (error) {
+        res.status(500).json({ error: error.message });
+        } else if (results.rows.length === 0) {
+        res.status(404).json({ message: 'No sheets available' });
+        } else {
+        res.status(200).json(results.rows[0]);
+        }
+    });
+});
+
+
 // soft delete sheet
 app.delete('/api/sheets/:id', (req, res) => {
     const id = parseInt(req.params.id);
@@ -91,5 +148,5 @@ app.patch('/api/sheets/:id', (req, res) => {
     );
 });
 
-// TODO: Add a get ratings route
+// TODO: Add a route for getting sheets from sheets_minimal (for searching)
 // NOTE: a 404 is not actually a 404, that is a logic error when doing the check (results.rows.length===0); nothing is sent back on delete.
