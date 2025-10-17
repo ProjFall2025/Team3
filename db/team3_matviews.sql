@@ -2,7 +2,7 @@
 create materialized view sheets_minimal as
 select id, title, artist, instrument, created_by
 from sheets s
-where visibility = "public" and deleted = false;
+where visibility = 'public' and deleted = false;
 
 create unique index idx_sheets_minimal_id on sheets_minimal (id);
 refresh materialized view concurrently sheets_minimal;
@@ -40,3 +40,22 @@ limit 10;
 
 create unique index idx_ten_sheets_by_rating on ten_sheets_by_rating (id);
 refresh materialized view concurrently ten_sheets_by_rating;
+
+-- View scheduling
+-- TODO: Figure this out
+create extension if not exists pg_cron;
+select cron.schedule(
+  'refresh_top_10_sheets',
+  '*/10 * * * *',
+  $$
+  	refresh materialized view concurrently top_10_sheets_by_downloads; 
+    refresh materialized view concurrently top_10_sheets_by_rating;
+  $$
+);
+
+-- Unscheduling a job
+select * from cron.job;
+select cron.unschedule(1); -- Change job id here
+
+-- See all previously run jobs
+select * from cron.job_run_details;
