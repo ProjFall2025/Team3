@@ -1,3 +1,13 @@
+-- View of minimized sheets table
+create materialized view sheets_minimal as
+select id, title, artist, instrument, created_by
+from sheets s
+where visibility = "public" and deleted = false;
+
+create unique index idx_sheets_minimal_id on sheets_minimal (id);
+refresh materialized view concurrently sheets_minimal;
+
+
 -- View to see a sheet with its average rating
 create materialized view sheets_with_rating as
 select s.*, coalesce(avg(r.rating),0) as avg_rating -- coalesce() here assigns 0 to sheets with 0 ratings
