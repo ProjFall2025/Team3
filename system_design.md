@@ -1,6 +1,6 @@
 ## API Design
 
-### Authentication & User Management
+### Authentication
 
 **POST /register**  
 _Request:_
@@ -35,7 +35,7 @@ _Request:_
 _Response:_
 
 ```json
-{ "user": { "id": 1, "is_locked": false } }
+{ "user": { "id": 1, "password": "hashed_pw", "is_locked": false } }
 ```
 
 **GET /validate/password**  
@@ -51,12 +51,23 @@ _Response:_
 { "user": { "id": 1, "password": "hashed_pw", "num_failed_attempts": 0 } }
 ```
 
+### Users
+
 **GET /api/users/:id**  
 _Role:_ Authenticated users  
 _Response:_
 
 ```json
-{ "id": 1, "username": "alice", "email": "alice@example.com", "bio": "Musician", ... }
+{
+  "id": 1,
+  "username": "alice",
+  "email": "alice@example.com",
+  "bio": "Musician",
+  "is_admin": false,
+  "is_locked": false,
+  "created_at": "...",
+  "last_logged_in": "..."
+}
 ```
 
 **PATCH /api/users/:id**  
@@ -78,6 +89,22 @@ _Response:_
 { "id": 1, "username": "alice2", ... }
 ```
 
+**PATCH /api/users/mkadmin/:id**  
+_Role:_ Admin  
+_Response:_
+
+```json
+{ "id": 1, "is_admin": true, ... }
+```
+
+**PATCH /api/users/restore/:id**  
+_Role:_ Admin  
+_Response:_
+
+```json
+{ "id": 1, "deleted": false, ... }
+```
+
 **DELETE /api/users/:id**  
 _Role:_ User (self) or Admin  
 _Response:_
@@ -86,7 +113,45 @@ _Response:_
 { "message": "User deleted", "user": { "id": 1, ... } }
 ```
 
-### Sheet Music
+**POST /api/users/follow**  
+_Role:_ Authenticated users  
+_Request:_
+
+```json
+{ "follower": 1, "followee": 2 }
+```
+
+_Response:_
+
+```json
+{ "follower": 1, "followee": 2 }
+```
+
+**GET /api/users/following/:id**  
+_Role:_ Authenticated users  
+_Response:_
+
+```json
+[ { "id": 2, "username": "bob", ... }, ... ]
+```
+
+**GET /api/users/sheets/:id**  
+_Role:_ Authenticated users  
+_Response:_
+
+```json
+[ { "id": 10, "title": "Song Title", ... }, ... ]
+```
+
+**GET /api/users/comments/:id**  
+_Role:_ Authenticated users  
+_Response:_
+
+```json
+[ { "id": 5, "sheet": 10, "created_by": 1, "content": "Great sheet!" }, ... ]
+```
+
+### Sheet
 
 **POST /api/sheets**  
 _Role:_ Authenticated users  
@@ -96,11 +161,11 @@ _Request:_
 {
   "created_by": 1,
   "model": 2,
-  "title": "Song Title", // Optional
-  "artist": "Artist", // Optional
-  "description": "Desc", // Optional
+  "title": "Song Title",
+  "artist": "Artist",
+  "description": "Desc",
   "instrument": "Piano",
-  "visibility": "public" // Optional
+  "visibility": "public"
 }
 ```
 
@@ -110,12 +175,58 @@ _Response:_
 { "id": 10, "title": "Song Title", ... }
 ```
 
+**POST /api/sheets/rate**  
+_Role:_ Authenticated users  
+_Request:_
+
+```json
+{ "user_id": 1, "sheet_id": 10, "rating": 4.5 }
+```
+
+_Response:_
+
+```json
+{ "user_id": 1, "sheet_id": 10, "rating": 4.5 }
+```
+
 **GET /api/sheets/:id**  
 _Role:_ Authenticated users  
 _Response:_
 
 ```json
 { "id": 10, "title": "Song Title", ... }
+```
+
+**GET /api/sheets/comments/:id**  
+_Role:_ Authenticated users  
+_Response:_
+
+```json
+{ "id": 5, "sheet": 10, "created_by": 1, "content": "Great sheet!" }
+```
+
+**GET /api/sheets/averages**  
+_Role:_ Authenticated users  
+_Response:_
+
+```json
+{ "id": 10, "title": "Song Title", "avg_rating": 4.2, ... }
+```
+
+**GET /api/sheets/topten/downloads**  
+_Role:_ Authenticated users  
+_Response:_
+
+```json
+{ "id": 10, "title": "Song Title", "num_downloads": 100, ... }
+```
+
+**GET /api/sheets/topten/averages**  
+_Role:_ Authenticated users  
+_Response:_
+
+```json
+{ "id": 10, "title": "Song Title", "avg_rating": 4.9, ... }
 ```
 
 **PATCH /api/sheets/:id**  
@@ -146,20 +257,6 @@ _Response:_
 { "message": "Sheet deleted", "sheet": { "id": 10, ... } }
 ```
 
-**POST /api/sheets/rate**  
-_Role:_ Authenticated users  
-_Request:_
-
-```json
-{ "user_id": 1, "sheet_id": 10, "rating": 4.5 }
-```
-
-_Response:_
-
-```json
-{ "user_id": 1, "sheet_id": 10, "rating": 4.5 }
-```
-
 ### Comments
 
 **POST /api/comments**  
@@ -176,6 +273,20 @@ _Response:_
 { "id": 5, "sheet": 10, "created_by": 1, "content": "Great sheet!" }
 ```
 
+**POST /api/comments/like**  
+_Role:_ Authenticated users  
+_Request:_
+
+```json
+{ "user_id": 1, "comment_id": 5 }
+```
+
+_Response:_
+
+```json
+{ "user_id": 1, "comment_id": 5 }
+```
+
 **DELETE /api/comments/:id**  
 _Role:_ Comment owner or Admin  
 _Response:_
@@ -184,37 +295,23 @@ _Response:_
 { "message": "Comment deleted", "comment": { "id": 5, ... } }
 ```
 
-### Social Features
+### Models
 
-**POST /api/users/follow**  
-_Role:_ Authenticated users  
-_Request:_
-
-```json
-{ "follower": 1, "followee": 2 }
-```
-
-_Response:_
-
-```json
-{ "follower": 1, "followee": 2 }
-```
-
-**GET /api/users/following/:id**  
+**GET /api/models**  
 _Role:_ Authenticated users  
 _Response:_
 
 ```json
-[ { "id": 2, "username": "bob", ... }, ... ]
+{ "id": 1, "name": "ModelName", "description": "...", ... }
 ```
 
 ## Security Considerations
 
 1. **Input Validation:**  
-   All API endpoints validate incoming data types and required fields to prevent SQL injection and malformed requests.
+   All API endpoints that require input validate incoming data types and required fields to prevent SQL injection and malformed requests.
 
 2. **Password Hashing:**  
-   User passwords are stored hashed (e.g., bcrypt) in the database, never in plaintext.
+   User passwords are stored hashed (bcrypt) in the database, never in plaintext.
 
 3. **Role-Based Access Control:**  
    Endpoints enforce user roles (admin, owner, authenticated) for sensitive actions (e.g., deleting users/sheets).
@@ -230,5 +327,5 @@ _Response:_
 2. **API Pagination:**  
    Endpoints returning lists (e.g., sheets, users, comments) should support pagination (`limit`, `offset`) to avoid large payloads.
 
-3. **Caching:**  
-   Frequently accessed data (e.g., sheet metadata, user profiles) can be cached at the API or database level to reduce load.
+3. **Use of Materialized Views**
+   Materialized views are used frequently to prevent querying large amounts of potentially unnecessary data at once.
