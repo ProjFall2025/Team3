@@ -15,6 +15,15 @@ class Comment {
     return result.rows[0];
   }
 
+  static async update(id, updateData) {
+    const { content, updated_at } = updateData;
+    const result = await pool.query(
+      'update comments set content = $2 and updated_at = $3 where id = $1 and deleted = false returning *',
+      [id, updated_at, content]
+    );
+    return result.rows[0];
+  }
+
   static async like({ user_id, comment_id }) {
     const result = await pool.query(
       'insert into comment_likes (user_id, comment_id) values ($1, $2) returning *',

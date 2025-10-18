@@ -19,6 +19,17 @@ const commentController = {
     }
   },
 
+  update: async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      const updated = await Comment.update(id, req.body);
+      if (!updated) return res.status(404).json({ message: 'Comment not found or deleted' });
+      res.status(200).json(updated);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  },
+
   delete: async (req, res) => {
     try {
       const id = parseInt(req.params.id);
