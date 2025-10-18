@@ -1,13 +1,17 @@
 const express = require('express');
 const path = require('path');
+const cors = require('cors');
 const app = express();
+require('dotenv').config();
 
+app.use(cors());
 app.use(express.json())
+app.use(express.urlencoded({ extended: true }));
 
-const routeModules = ['login', 'comments', 'users', 'sheets', 'models'];
+const routeModules = ['auth', 'comment', 'model', 'sheet', 'user'];
 routeModules.forEach(route => {
-    const modulePath = `./routes/${route}`;
-    app.use(require(modulePath));
+    const modulePath = `./api/routes/${route}`;
+    app.use(`/api/${route}`, require(modulePath));
 });
 
 app.use(express.static(path.join(__dirname, 'app/build')));
