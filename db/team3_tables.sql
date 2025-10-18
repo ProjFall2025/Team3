@@ -46,6 +46,7 @@ create table sheets (
 	description varchar(400) default '',
 	num_downloads int not null default 0,
 	instrument varchar(20) not null,
+	genre varchar(20),
 	musicxml varchar, -- NOTE: size TBD
 	comments_enabled boolean default true,
 	visibility visibility not null default 'public',
