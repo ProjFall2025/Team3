@@ -72,34 +72,3 @@ create or replace function check_num_attempts() returns trigger as
 create trigger incr_failed_attempts
 after insert on login_attempts
 for each row execute function check_num_attempts();
-
--- View to see a sheet with its average rating
-create materialized view sheets_with_rating as
-select s.*, coalesce(avg(r.rating),0) as avg_rating -- coalesce() here assigns 0 to sheets with 0 ratings
-from sheets s
-left join sheet_ratings r on s.id = r.sheet_id
-group by s.id;
-
-CREATE UNIQUE INDEX idx_sheets_with_rating_id ON sheets_with_rating (id);
-REFRESH MATERIALIZED VIEW CONCURRENTLY sheets_with_rating;
-
-
--- View to see top 10 sheets by num_downloads
-create materialized view ten_sheets_by_downloads as
-select *
-from sheets
-order by num_downloads desc
-limit 10;
-
-CREATE UNIQUE INDEX idx_ten_sheets_by_downloads ON ten_sheets_by_downloads (id);
-REFRESH MATERIALIZED VIEW CONCURRENTLY ten_sheets_by_downloads;
-
--- View to see top 10 sheets by avg_rating
-create materialized view ten_sheets_by_rating as
-select *
-from sheets_with_rating
-order by avg_rating desc
-limit 10;
-
-CREATE UNIQUE INDEX idx_ten_sheets_by_downloads ON ten_sheets_by_downloads (id);
-REFRESH MATERIALIZED VIEW CONCURRENTLY ten_sheets_by_downloads;
