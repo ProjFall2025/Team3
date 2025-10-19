@@ -13,6 +13,11 @@ router.post('/', auth, commentController.create);
 // @access  Private
 router.post('/like', auth, commentController.like);
 
+// @route   PATCH /api/comment/:id
+// @desc    Update a comment
+// @access  Private
+router.patch('/:id', auth, commentController.update);
+
 // @route   DELETE /api/comment/:id
 // @desc    Delete a comment
 // @access  Private
