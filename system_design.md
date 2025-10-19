@@ -2,7 +2,7 @@
 
 ### Authentication
 
-**POST /register**  
+**POST /api/auth/register**
 _Request:_
 
 ```json
@@ -25,7 +25,7 @@ _Response:_
 }
 ```
 
-**GET /validate/user**  
+**GET /api/auth/validate/user**  
 _Request:_
 
 ```json
@@ -38,7 +38,7 @@ _Response:_
 { "user": { "id": 1, "password": "hashed_pw", "is_locked": false } }
 ```
 
-**GET /validate/password**  
+**GET /api/auth/validate/password**  
 _Request:_
 
 ```json
@@ -53,8 +53,8 @@ _Response:_
 
 ### Users
 
-**GET /api/users/:id**  
-_Role:_ Authenticated users  
+**GET /api/user/:id**  
+_Role:_ Public  
 _Response:_
 
 ```json
@@ -70,7 +70,7 @@ _Response:_
 }
 ```
 
-**PATCH /api/users/:id**  
+**PATCH /api/user/:id**  
 _Role:_ User (self) or Admin  
 _Request:_
 
@@ -89,7 +89,7 @@ _Response:_
 { "id": 1, "username": "alice2", ... }
 ```
 
-**PATCH /api/users/mkadmin/:id**  
+**PATCH /api/user/mkadmin/:id**  
 _Role:_ Admin  
 _Response:_
 
@@ -97,7 +97,7 @@ _Response:_
 { "id": 1, "is_admin": true, ... }
 ```
 
-**PATCH /api/users/restore/:id**  
+**PATCH /api/user/restore/:id**  
 _Role:_ Admin  
 _Response:_
 
@@ -105,7 +105,7 @@ _Response:_
 { "id": 1, "deleted": false, ... }
 ```
 
-**DELETE /api/users/:id**  
+**DELETE /api/user/:id**  
 _Role:_ User (self) or Admin  
 _Response:_
 
@@ -113,7 +113,7 @@ _Response:_
 { "message": "User deleted", "user": { "id": 1, ... } }
 ```
 
-**POST /api/users/follow**  
+**POST /api/user/follow**  
 _Role:_ Authenticated users  
 _Request:_
 
@@ -127,7 +127,7 @@ _Response:_
 { "follower": 1, "followee": 2 }
 ```
 
-**GET /api/users/following/:id**  
+**GET /api/user/:id/following**  
 _Role:_ Authenticated users  
 _Response:_
 
@@ -135,7 +135,7 @@ _Response:_
 [ { "id": 2, "username": "bob", ... }, ... ]
 ```
 
-**GET /api/users/sheets/:id**  
+**GET /api/user/:id/sheets**  
 _Role:_ Authenticated users  
 _Response:_
 
@@ -143,7 +143,7 @@ _Response:_
 [ { "id": 10, "title": "Song Title", ... }, ... ]
 ```
 
-**GET /api/users/comments/:id**  
+**GET /api/user/:id/comments**  
 _Role:_ Authenticated users  
 _Response:_
 
@@ -153,7 +153,7 @@ _Response:_
 
 ### Sheet
 
-**POST /api/sheets**  
+**POST /api/sheet**  
 _Role:_ Authenticated users  
 _Request:_
 
@@ -175,7 +175,7 @@ _Response:_
 { "id": 10, "title": "Song Title", ... }
 ```
 
-**POST /api/sheets/rate**  
+**POST /api/sheet/rate**  
 _Role:_ Authenticated users  
 _Request:_
 
@@ -189,7 +189,7 @@ _Response:_
 { "user_id": 1, "sheet_id": 10, "rating": 4.5 }
 ```
 
-**GET /api/sheets/:id**  
+**GET /api/sheet/:id**  
 _Role:_ Authenticated users  
 _Response:_
 
@@ -197,7 +197,7 @@ _Response:_
 { "id": 10, "title": "Song Title", ... }
 ```
 
-**GET /api/sheets/comments/:id**  
+**GET /api/sheet/:id/comments**  
 _Role:_ Authenticated users  
 _Response:_
 
@@ -205,7 +205,7 @@ _Response:_
 { "id": 5, "sheet": 10, "created_by": 1, "content": "Great sheet!" }
 ```
 
-**GET /api/sheets/averages**  
+**GET /api/sheet/averages**  
 _Role:_ Authenticated users  
 _Response:_
 
@@ -213,7 +213,7 @@ _Response:_
 { "id": 10, "title": "Song Title", "avg_rating": 4.2, ... }
 ```
 
-**GET /api/sheets/topten/downloads**  
+**GET /api/sheet/topten/downloads**  
 _Role:_ Authenticated users  
 _Response:_
 
@@ -221,7 +221,7 @@ _Response:_
 { "id": 10, "title": "Song Title", "num_downloads": 100, ... }
 ```
 
-**GET /api/sheets/topten/averages**  
+**GET /api/sheet/topten/averages**  
 _Role:_ Authenticated users  
 _Response:_
 
@@ -229,8 +229,8 @@ _Response:_
 { "id": 10, "title": "Song Title", "avg_rating": 4.9, ... }
 ```
 
-**PATCH /api/sheets/:id**  
-_Role:_ Sheet owner or Admin  
+**PATCH /api/sheet/:id**  
+_Role:_ User (self) or Admin  
 _Request:_
 
 ```json
@@ -249,8 +249,8 @@ _Response:_
 { "id": 10, "title": "New Title", ... }
 ```
 
-**DELETE /api/sheets/:id**  
-_Role:_ Sheet owner or Admin  
+**DELETE /api/sheet/:id**  
+_Role:_ User (self) or Admin  
 _Response:_
 
 ```json
@@ -259,7 +259,7 @@ _Response:_
 
 ### Comments
 
-**POST /api/comments**  
+**POST /api/comment**  
 _Role:_ Authenticated users  
 _Request:_
 
@@ -273,7 +273,7 @@ _Response:_
 { "id": 5, "sheet": 10, "created_by": 1, "content": "Great sheet!" }
 ```
 
-**POST /api/comments/like**  
+**POST /api/comment/like**  
 _Role:_ Authenticated users  
 _Request:_
 
@@ -287,8 +287,8 @@ _Response:_
 { "user_id": 1, "comment_id": 5 }
 ```
 
-**DELETE /api/comments/:id**  
-_Role:_ Comment owner or Admin  
+**DELETE /api/comment/:id**  
+_Role:_ User (self) or Admin  
 _Response:_
 
 ```json

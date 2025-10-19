@@ -16,7 +16,7 @@ router.post('/rate', auth, sheetController.rate);
 // @route   GET /api/sheet/comments/:id
 // @desc    Get comments for sheet
 // @access  Public
-router.get('/comments/:id', sheetController.getComments);
+router.get('/:id/comments', sheetController.getComments);
 
 // @route   GET /api/sheet/averages
 // @desc    View sheets with their averages
