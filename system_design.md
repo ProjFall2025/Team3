@@ -19,16 +19,6 @@ Database: **PostgreSQL** for storage of all app models (users, sheets, etc)
 
 Third-Party APIs: **Google** for authentication with OAuth2 (if users want to log in with Google)
 
-## Roles
-
-There will be three main roles active:
-
-- **Registered Users:** Require login, are able to upload their generated sheets to the site, and like and comment existing sheets
-
-- **Administrators:** Have all permissions of registered users, in addition to the ability to remove or restore sheets and their comments
-
-- **Guests:** Cannot upload sheets to the site; only generate sheets client-side. Can view other registered users' sheets, but not comment, like, or rate.
-
 ## API Design
 
 Following a Model-Viewer-Controller (MVC) architecture, the back-end has the following file structure:
@@ -60,12 +50,35 @@ api/
 ```
 
 In **config**, the PostgreSQL database connection is configured. <br>
-**Models** defines object classes and corresponding actions. <br>
+**Models** define object classes and corresponding actions. <br>
 **Routes** establish the URLs of APIs corresponding to the model classes. <br>
 **Controllers** handle API requests with model function calls and return responses. <br>
 **Middleware** handles checks on API calls such as authentication and roles.
 
-### Authentication
+### Middleware
+
+#### **Roles**
+
+There will be three main roles active:
+
+- **Registered Users:** Require login, are able to upload their generated sheets to the site, and like and comment existing sheets
+
+- **Administrators:** Have the ability to remove or restore sheets and their comments, in addition to all permissions of registered users
+
+- **Guests:** Cannot upload sheets to the site; only generate sheets client-side. Can view other registered users' sheets, but not comment, like, or rate.
+
+Authentication is checked in the auth.js middleware file, while roles are checked in the role.js middleware file, both used in the appropriate routes.
+
+#### **Authentication**
+
+Authentication will be performed with **JSON Web Tokens (JWTs)**, along with **OAuth2** for optional **third-party logins through Google.** <br>
+A sign-up page will direct users to input their email, a username, and a password (which is later hashed and salted) for their account. <br>
+Upon sign-up, a new user object will be created in the database storing the registration information and a unique user ID. <br>
+To sign in, users will input their username and password, which will then be compared to the database information. <br>
+A valid token with expiration will be issued to users upon successful authentication. <br>
+Users that log in with Google for the first time will automatically register with their Google account information, excluding a password.
+
+### Authentication API
 
 **POST /api/auth/register**
 _Request:_
