@@ -1,4 +1,69 @@
+# **Knowtes** System Architecture Overview
+
+System Architecture Diagram <br>
+![System Architecture Diagram](Knowtes%20System%20Architecture%20Diagram.png)
+
+Use Case Diagram <br>
+![Use Case Diagram](Knowtes%20Use%20Case%20Diagram.png)
+
+UML Sequence Diagram for Authentication Process <br>
+![Sequence Diagram](Knowtes%20Login%20UML%20Sequence%20Diagram.png)
+
+## Technology Stack
+
+Front-end: **React** for app interactivity, i.e. making and exploring sheets, commenting, following users
+
+Back-end: **Node.js with Express** for app logic reflecting user actions, i.e. logging in, verifying roles, processing sheets, comments, likes
+
+Database: **PostgreSQL** for storage of all app models (users, sheets, etc)
+
+Third-Party APIs: **Google** for authentication with OAuth2 (if users want to log in with Google)
+
+## Roles
+
+There will be three main roles active:
+
+- **Registered Users:** Require login, are able to upload their generated sheets to the site, and like and comment existing sheets
+
+- **Administrators:** Have all permissions of registered users, in addition to the ability to remove or restore sheets and their comments
+
+- **Guests:** Cannot upload sheets to the site; only generate sheets client-side. Can view other registered users' sheets, but not comment, like, or rate.
+
 ## API Design
+
+Following a Model-Viewer-Controller (MVC) architecture, the back-end has the following file structure:
+
+```
+api/
+├── config/
+│   └── database.js
+├── controllers/
+│   ├── authController.js
+│   ├── commentController.js
+│   ├── modelController.js
+│   ├── sheetController.js
+│   └── userController.js
+├── middleware/
+│   ├── auth.js
+│   └── role.js
+├── models/
+│   ├── Comment.js
+│   ├── Model.js
+│   ├── Sheet.js
+│   └── User.js
+└── routes/
+    ├── auth.js
+    ├── comment.js
+    ├── model.js
+    ├── sheet.js
+    └── user.js
+```
+
+In **config**, the PostgreSQL database connection is configured. <br>
+**Models** defines object classes and corresponding actions. <br>
+**Routes** establish the URLs of APIs corresponding to the model classes. <br>
+**Controllers** handle API requests with model function calls and return responses. <br>
+**Middleware** handles checks on API calls such as authentication and roles.
 
 ### Authentication
 
@@ -311,7 +376,7 @@ _Response:_
    All API endpoints that require input validate incoming data types and required fields to prevent SQL injection and malformed requests.
 
 2. **Password Hashing:**  
-   User passwords are stored hashed (bcrypt) in the database, never in plaintext.
+   User passwords are stored hashed and salted (bcrypt) in the database, never in plaintext.
 
 3. **Role-Based Access Control:**  
    Endpoints enforce user roles (admin, owner, authenticated) for sensitive actions (e.g., deleting users/sheets).
