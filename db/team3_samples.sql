@@ -1,4 +1,4 @@
--- USERS (10 entries)
+-- users
 insert into users (username, email, password, bio)
 values
 ('mbrukson', 'michael@example.com', 'hashed_pw_1', 'Music enthusiast and AI researcher.'),
@@ -12,12 +12,12 @@ values
 ('gmichael', 'georgie@example.com', 'hashed_pw_9', 'The music seems so loud. Gotta have faith.'),
 ('PTchaikovsky', 'genius@example.com', 'hashed_pw_10', 'Я люблю чай.');
 
--- MODELS (10 entries)
+-- models
 insert into models (name, description)
 values
 ('TempModel', 'Placeholder for models');
 
--- SHEETS (10 entries)
+-- sheets
 insert into sheets (created_by, model, title, artist, description, instrument, genre, comments_enabled, visibility)
 values
 (1, 1, 'Careless Whispers', 'George Michael', 'The best song of all time.', 'Saxophone', 'Soul', false, 'public'),
@@ -31,25 +31,25 @@ values
 (9, 1, 'Mamma Mia', 'Abba', 'A vocal ensemble arrangement.', 'Voice', 'Choral', 'follower', true, 'public'),
 (10, 1, 'Waterloo', 'Abba', 'Experimental piece with algorithmic rhythms.', 'Piano', 'Experimental', false, 'public');
 
--- USER FOLLOWS (10 entries)
+-- user_follows
 insert into user_follows (follower, followee)
 values
 (2, 1), (3, 1), (4, 1), (1, 4), (1, 2),
 (5, 6), (6, 7), (7, 5), (8, 9), (9, 8);
 
--- SHEET DOWNLOADS (10 entries)
+-- sheet_downloads
 insert into sheet_downloads (sheet_id, user_id)
 values
 (1, 2), (1, 4), (1, 5), (4, 5), (4, 3),
 (6, 2), (7, 8), (8, 6), (9, 10), (10, 9);
 
--- SHEET RATINGS (10 entries)
+-- sheet_ratings
 insert into sheet_ratings (user_id, sheet_id, rating)
 values
 (1, 1, 4.5), (2, 1, 5.0), (1, 4, 4.0), (4, 5, 4.8), (5, 3, 3.9),
 (6, 7, 4.2), (7, 6, 3.8), (8, 9, 5.0), (9, 10, 4.6), (10, 8, 4.1);
 
--- COMMENTS (10 entries)
+-- comments
 insert into comments (sheet, created_by, replying_to, content)
 values
 (1, 2, null,'Absolutely beautiful!'),
@@ -63,7 +63,7 @@ values
 (9, 10, null, 'Incredible vocal harmonies.'),
 (9, 3, 9, 'Super creative and technical.');
 
--- COMMENT LIKES (10 entries)
+-- comment_likes
 insert into comment_likes (user_id, comment_id)
 values
 (1, 2), (2, 1), (3, 4), (4, 3), (5, 6),
