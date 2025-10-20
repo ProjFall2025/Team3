@@ -71,11 +71,13 @@ create table sheet_ratings (
     primary key (user_id, sheet_id)
 );
 
--- Comments table, M-1 with sheets
+-- Note: Potentially add check (not a literal CHECK, probably a trigger) to enforce that
+-- the comment referenced in replying_to is under the same sheet. (Logically: check (sheet == replying_to.sheet))
 create table comments (
 	id serial primary key,
 	sheet int not null references sheets(id) on delete cascade,
 	created_by int references users(id) on delete set null,
+	replying_to int default null references comments(id),
 	created_at timestamp default CURRENT_TIMESTAMP,
 	num_likes int not null default 0,
 	updated_at timestamp default CURRENT_TIMESTAMP,
