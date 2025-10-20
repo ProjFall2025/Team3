@@ -58,7 +58,7 @@ create table sheets (
 create table sheet_downloads (
 	id serial primary key,
     sheet_id int not null references sheets(id) on delete cascade,
-    user_id int not null references users(id) on delete cascade,
+    user_id int references users(id) on delete set null,
 	downloaded_on timestamp default CURRENT_TIMESTAMP
 );
 
