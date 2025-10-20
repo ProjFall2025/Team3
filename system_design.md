@@ -1,25 +1,8 @@
-# **Knowtes** System Architecture Overview
+# **Knowtes** System Architecture and API Design
 
-System Architecture Diagram <br>
-![System Architecture Diagram](Knowtes%20System%20Architecture%20Diagram.png)
+### By Michael Brukson, Anthony Nosoff, and Michael Tesis
 
-Use Case Diagram <br>
-![Use Case Diagram](Knowtes%20Use%20Case%20Diagram.png)
-
-UML Sequence Diagram for Authentication Process <br>
-![Sequence Diagram](Knowtes%20Login%20UML%20Sequence%20Diagram.png)
-
-## Technology Stack
-
-Front-end: **React** for app interactivity, i.e. making and exploring sheets, commenting, following users
-
-Back-end: **Node.js with Express** for app logic reflecting user actions, i.e. logging in, verifying roles, processing sheets, comments, likes
-
-Database: **PostgreSQL** for storage of all app models (users, sheets, etc)
-
-Third-Party APIs: **Google** for authentication with OAuth2 (if users want to log in with Google)
-
-## API Design
+## System Architecture Overview
 
 Following a Model-Viewer-Controller (MVC) architecture, the back-end has the following file structure:
 
@@ -50,12 +33,27 @@ api/
 ```
 
 In **config**, the PostgreSQL database connection is configured. <br>
-**Models** define object classes and corresponding actions. <br>
-**Routes** establish the URLs of APIs corresponding to the model classes. <br>
-**Controllers** handle API requests with model function calls and return responses. <br>
-**Middleware** handles checks on API calls such as authentication and roles.
+**models** defines classes corresponding to entities that form model. <br>
+**routes** map end point URLs to controller actions. <br>
+**controllers** handle API requests with model function calls and return responses. <br>
+**middleware** handles checks on API calls such as authentication and roles.
 
-### Middleware
+System Architecture Diagram <br>
+![System Architecture Diagram](Knowtes%20System%20Architecture%20Diagram.png)
+
+## Technology Stack
+
+Front-end: **React** for app interactivity, i.e. making and exploring sheets, commenting, following users
+
+Back-end: **Node.js with Express** for app logic reflecting user actions, i.e. logging in, verifying roles, processing sheets, comments, likes
+
+Database: **PostgreSQL** for storage of all app models (users, sheets, etc)
+
+Authentication: OAuth2 authentication using JWT tokens
+
+Third-Party APIs: **Google** for authorization with OAuth2 (if users want to log in with Google)
+
+## Authentication and Role-Based Access Control
 
 #### **Roles**
 
@@ -67,6 +65,9 @@ There will be three main roles active:
 
 - **Guests:** Cannot upload sheets to the site; only generate sheets client-side. Can view other registered users' sheets, but not comment, like, or rate.
 
+Use Case Diagram <br>
+![Use Case Diagram](Knowtes%20Use%20Case%20Diagram.png)
+
 Authentication is checked in the auth.js middleware file, while roles are checked in the role.js middleware file, both used in the appropriate routes.
 
 #### **Authentication**
@@ -77,6 +78,13 @@ Upon sign-up, a new user object will be created in the database storing the regi
 To sign in, users will input their username and password, which will then be compared to the database information. <br>
 A valid token with expiration will be issued to users upon successful authentication. <br>
 Users that log in with Google for the first time will automatically register with their Google account information, excluding a password.
+
+One authentication flow for login is shown in the UML Sequence Diagram below:
+
+UML Sequence Diagram for Authentication Process <br>
+![Sequence Diagram](Knowtes%20Login%20UML%20Sequence%20Diagram.png)
+
+## API Design
 
 ### Authentication API
 
