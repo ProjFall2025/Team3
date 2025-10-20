@@ -49,7 +49,7 @@ Back-end: **Node.js with Express** for app logic reflecting user actions, i.e. l
 
 Database: **PostgreSQL** for storage of all app models (users, sheets, etc)
 
-Authentication: OAuth2 authentication using JWT tokens
+Authentication: **OAuth2** authentication using **JWT** tokens
 
 Third-Party APIs: **Google** for authorization with OAuth2 (if users want to log in with Google)
 
@@ -64,6 +64,8 @@ There will be three main roles active:
 - **Administrators:** Have the ability to remove or restore sheets and their comments, in addition to all permissions of registered users
 
 - **Guests:** Cannot upload sheets to the site; only generate sheets client-side. Can view other registered users' sheets, but not comment, like, or rate.
+
+The roles and the actions for each role are shown in the UML Use Case Diagram below:
 
 Use Case Diagram <br>
 ![Use Case Diagram](Knowtes%20Use%20Case%20Diagram.png)
