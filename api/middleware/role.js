@@ -4,7 +4,9 @@ const role = (...allowedRoles) => {
       return res.status(401).json({ message: 'Authentication required' });
     }
 
-    if (!allowedRoles.includes(req.user.role)) {
+    const userRole = req.user.is_admin ? 'admin' : 'user';
+
+    if (!allowedRoles.includes(userRole)) {
       return res.status(403).json({ 
         message: 'Access denied. Insufficient permissions.' 
       });

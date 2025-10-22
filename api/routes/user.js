@@ -32,11 +32,11 @@ router.get('/:id/comments', userController.getComments);
 // @route   PATCH /api/user/:id/comments
 // @desc    Make a user an admin
 // @access  Private (Admin obly)
-router.patch('/:id', role('admin'), userController.makeAdmin);
+router.patch('/:id', auth, role('admin'), userController.makeAdmin);
 
 // @route   DELETE /api/user/:id
 // @desc    Delete a user
 // @access  Private (Admin only)
-router.delete('/:id', role('admin'), userController.delete);
+router.delete('/:id', auth, role('admin'), userController.delete);
 
 module.exports = router;
