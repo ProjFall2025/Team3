@@ -1,4 +1,3 @@
-const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
 const authController = {
@@ -8,11 +7,7 @@ const authController = {
 
       const user = await User.create({ username, email, password, bio });
 
-      const token = jwt.sign(
-        { userId: user.id },
-        process.env.JWT_SECRET || 'dev_secret',
-        { expiresIn: process.env.JWT_EXPIRES_IN || '7d' }
-      );
+      const token = User.genToken(user.id)
 
       res.status(201).json({ user, token });
     } catch (error) {
@@ -43,14 +38,14 @@ const authController = {
 
   validatePassword: async (req, res) => {
     try {
-      const { id, password } = req.body;
+      const { id, num_failed_attempts, password, password_hash } = req.body;
 
-      const correct = User.comparePassword(password, user.password);
+      const correct = await User.comparePassword(password, password_hash);
 
       if (!correct) {
         User.logAttempt(id, false, req.ip);
 
-        if (userRow.num_failed_attempts === 4) {
+        if (num_failed_attempts === 4) {
           return res.status(403).json({ message: 'Invalid password, your account has been locked.' });
         }
 
@@ -59,8 +54,9 @@ const authController = {
 
       User.logAttempt(id, true, req.ip);
       User.updateLastLoggedIn(id, new Date());
+      const token = User.genToken(id)
 
-      res.status(200).json({ user: user });
+      res.status(200).json({ token: token });
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
@@ -68,7 +64,7 @@ const authController = {
 
   getProfile: async (req, res) => {
     try {
-      const user = await User.findById(req.user && req.user.id);
+      const user = await User.getById(req.user && req.user.id);
       res.status(200).json(user);
     } catch (error) {
       res.status(500).json({ error: error.message });
