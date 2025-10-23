@@ -6,7 +6,7 @@ require('dotenv').config();
 class User {
   static async getById(id) {
     const result = await pool.query(
-      'select id, username, email, bio, password, is_admin, is_locked, created_at, last_logged_in from users where id = $1 and deleted = false',
+      'select id, username, email, bio, password, is_admin, num_failed_attempts, is_locked, created_at from users where id = $1 and deleted = false',
       [id]
     );
     return result.rows[0];
@@ -14,7 +14,7 @@ class User {
 
   static async getByUsername(username) {
     const result = await pool.query(
-      'select id, username, email, bio, password, is_admin, is_locked, created_at, last_logged_in from users where username = $1 and deleted = false',
+      'select id, username, email, bio, password, is_admin, num_failed_attempts, is_locked, created_at from users where username = $1 and deleted = false',
       [username]
     );
     return result.rows[0];
@@ -22,7 +22,7 @@ class User {
 
   static async getByEmail(email) {
     const result = await pool.query(
-      'select id, username, email, bio, password, is_admin, is_locked, created_at, last_logged_in from users where email = $1 and deleted = false',
+      'select id, username, email, bio, password, is_admin, num_failed_attempts, is_locked, created_at from users where email = $1 and deleted = false',
       [email]
     );
     return result.rows[0];
@@ -60,7 +60,7 @@ class User {
   }
 
   static async updateLastLoggedIn(id, date){
-    const result = await pool.query(`update users set last_logged_in = $2 where id = $1`, [id, date]);
+    const result = await pool.query(`update users se = $2 where id = $1`, [id, date]);
     return result.rows[0];
   }
 

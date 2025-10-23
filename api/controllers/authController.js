@@ -38,14 +38,16 @@ const authController = {
 
   validatePassword: async (req, res) => {
     try {
-      const { id, num_failed_attempts, password, password_hash } = req.body;
+      const { id, password } = req.body;
 
-      const correct = await User.comparePassword(password, password_hash);
+      const user = await User.getById(id);
+
+      const correct = await User.comparePassword(password, user.password);
 
       if (!correct) {
         User.logAttempt(id, false, req.ip);
 
-        if (num_failed_attempts === 4) {
+        if (user.num_failed_attempts === 4) {
           return res.status(403).json({ message: 'Invalid password, your account has been locked.' });
         }
 
