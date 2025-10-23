@@ -70,8 +70,8 @@ create or replace function _sheets_cascade_s_delete_comment(sheet_id integer) re
 	end
 	$$ language PLPGSQL;
 
--- alter table users disable trigger trig_soft_delete_sheet;
--- alter table users enable trigger trig_soft_delete_sheet;
+-- alter table sheets disable trigger trig_soft_delete_sheet;
+-- alter table sheets enable trigger trig_soft_delete_sheet;
 
 -- Trigger function to soft delete comment
 create or replace function _soft_delete_comment() returns trigger as
@@ -89,7 +89,7 @@ create trigger trig_soft_delete_comment
 before delete on comments
 for each row execute function _soft_delete_comment();
 
--- alter table users disable trigger trig_soft_delete_comment;
--- alter table users enable trigger trig_soft_delete_comment;
+-- alter table comments disable trigger trig_soft_delete_comment;
+-- alter table comments enable trigger trig_soft_delete_comment;
 
 -- TODO: Add comment cascade on user delete
