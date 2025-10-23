@@ -187,18 +187,13 @@ Multiple development channels (alpha, beta, release) implemented as Git branches
 
 Knowtes is a music recognition software. Users can upload an mp3 file or a wav file and the software will give the user the transcribed sheet music for that song. Alternatively, users may also request a song's transcription via its name directly; upon which the software will make an external API call for that song.
 
-## Project Structure
-
-## Requirements
-
-## Installation
+## Getting Started
 
 ### Prerequisites
 
-- Node.js (version 14 or higher)
-- npm (comes with Node.js)
-
-### Getting Started
+- Node.js (version 14 or higher), npm (comes with Node.js)
+- PostgreSQL
+- (Optional) Git
 
 1. **Clone the repository**
 
@@ -207,35 +202,80 @@ Knowtes is a music recognition software. Users can upload an mp3 file or a wav f
    cd Team3
    ```
 
-2. **Install backend dependencies**
+2. **Create an .env file in the project root (example)**
 
-   ```bash
-   npm install
+   ```env
+   PORT=3000
+   DB_HOST=localhost
+   DB_USER=your_db_user
+   DB_PASSWORD=your_db_password
+   DB_NAME=your_db_name
+   DB_PORT=5432
+   JWT_SECRET=replace_with_secure_secret
+   JWT_EXPIRES_IN=7d
    ```
 
-3. **Install frontend dependencies**
+3. **Install backend dependencies**
+
+   ```bash
+   npm i
+   ```
+
+4. **Set up database**
+
+   i. **Create database**
+
+   ```pgsql
+   createdb -h $DB_HOST -p $DB_PORT -U $DB_USER knowtes
+   ```
+
+   ii. **Create core tables**
+
+   ```pgsql
+   psql -h $DB_HOST -p $DB_PORT -U $DB_USER -d knowtes -f db/team3_tables.sql
+   ```
+
+   iii. **Create functional triggers & Soft delete triggers**
+
+   ```pgsql
+   psql -h $DB_HOST -p $DB_PORT -U $DB_USER -d knowtes -f db/team3_triggers.sql
+   psql -h $DB_HOST -p $DB_PORT -U $DB_USER -d knowtes -f db/team3_softdel.sql
+   ```
+
+   iv. Create materialized views
+
+   ```pgsql
+   psql -h $DB_HOST -p $DB_PORT -U $DB_USER -d knowtes -f db/team3_matviews.sql
+   ```
+
+   v. (Optional) Load sample data
+
+   ```pgsql
+   psql -h $DB_HOST -p $DB_PORT -U $DB_USER -d knowtes -f db/team3_samples.sql
+   ```
+
+5. **Install frontend dependencies**
 
    ```bash
    cd app
-   npm install
+   npm i
    cd ..
    ```
 
-4. **Build the React application**
+6. **Build the React application**
 
    ```bash
    npm run build-react
    ```
 
-5. **Start the development server**
+7. **Start the development server**
 
    ```bash
    npm run dev
    ```
 
-6. **Access the application**
-   - Open your browser and navigate to `http://localhost:8080`
-   - The API endpoint is available at `http://localhost:8080/api/test`
+8. **Access the application**
+   - Open your browser and navigate to `http://localhost:3000` //Port and host set to whatever is in the .env
 
 ### Development Mode
 
