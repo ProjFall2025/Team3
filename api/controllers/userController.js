@@ -69,12 +69,12 @@ const userController = {
     }
   },
   
+  // MARK: Note - due to soft deletion, deleted records do not return anything.
   delete: async (req, res) => {
     try {
       const id = parseInt(req.params.id);
-      const deleted = await User.delete(id);
-      if (!deleted) return res.status(404).json({ message: 'User not found or already deleted' });
-      res.status(200).json({ message: 'Sheet deleted', sheet: deleted });
+      await User.delete(id);
+      return res.status(200).json({ message: 'User deleted or not found', user: deleted});
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
