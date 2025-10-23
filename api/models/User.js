@@ -6,7 +6,7 @@ require('dotenv').config();
 class User {
   static async getById(id) {
     const result = await pool.query(
-      'select id, username, email, bio, is_admin, is_locked, created_at, last_logged_in from users where id = $1 and deleted = false',
+      'select id, username, email, bio, password, is_admin, is_locked, created_at, last_logged_in from users where id = $1 and deleted = false',
       [id]
     );
     return result.rows[0];

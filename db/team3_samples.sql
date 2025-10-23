@@ -28,7 +28,7 @@ values
 (6, 1, 'Around The World', 'Daft Punk', 'My favorite piece, ever.', 'Keyboard', 'Rock', false, 'public'),
 (7, 1, 'Technologic', 'Daft Punk', 'Harder Better Faster Stronger', 'Synth', 'EDM', false, 'public'),
 (8, 1, 'Father Figure', 'George Michael', 'Father figure my george michael, made by model 1!', 'Bass', 'Blues', true, 'public'),
-(9, 1, 'Mamma Mia', 'Abba', 'A vocal ensemble arrangement.', 'Voice', 'Choral', 'follower', true, 'public'),
+(9, 1, 'Mamma Mia', 'Abba', 'A vocal ensemble arrangement.', 'Voice', 'Choral', true, 'public'),
 (10, 1, 'Waterloo', 'Abba', 'Experimental piece with algorithmic rhythms.', 'Piano', 'Experimental', false, 'public');
 
 -- user_follows
