@@ -1,43 +1,33 @@
-const pool = require('../config/database');
+const knex = require('../config/database');
 
 class Comment {
   static async getById(id) {
-    const result = await pool.query('select * from comments where id = $1 and deleted = false', [id]);
-    return result.rows[0];
+    return await knex('comments').where({ id, deleted: false }).first();
   }
 
   static async create(commentData) {
     const { sheet, created_by, content } = commentData;
-    const result = await pool.query(
-      'insert into comments (sheet, created_by, content) values ($1, $2, $3) returning *',
-      [sheet, created_by, content]
-    );
-    return result.rows[0];
+    const rows = await knex('comments').insert({ sheet, created_by, content }).returning('*');
+    return rows[0];
   }
 
   static async update(id, updateData) {
     const { content, updated_at } = updateData;
-    const result = await pool.query(
-      'update comments set content = $2 and updated_at = $3 where id = $1 and deleted = false returning *',
-      [id, updated_at, content]
-    );
-    return result.rows[0];
+    const rows = await knex('comments')
+      .where({ id, deleted: false })
+      .update({ content, updated_at })
+      .returning('*');
+    return rows[0];
   }
 
   static async like({ user_id, comment_id }) {
-    const result = await pool.query(
-      'insert into comment_likes (user_id, comment_id) values ($1, $2) returning *',
-      [user_id, comment_id]
-    );
-    return result.rows[0];
+    const rows = await knex('comment_likes').insert({ user_id, comment_id }).returning('*');
+    return rows[0];
   }
 
   static async delete(id) {
-    const result = await pool.query(
-      'delete from comments where id = $1 returning *',
-      [id]
-    );
-    return result.rows[0];
+    const rows = await knex('comments').where({ id }).del().returning('*');
+    return rows[0];
   }
 }
 

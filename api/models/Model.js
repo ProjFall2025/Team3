@@ -1,11 +1,8 @@
-const pool = require('../config/database');
+const knex = require('../config/database');
 
 class Model {
   static async getAll() {
-    const result = await pool.query(
-      'select * from models',
-    );
-    return result.rows;
+    return await knex('models').select('*');
   }
 }
 
