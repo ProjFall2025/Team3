@@ -60,7 +60,7 @@ class User {
   }
 
   static async updateLastLoggedIn(id, date){
-    const result = await pool.query(`update users se = $2 where id = $1`, [id, date]);
+    const result = await pool.query(`update users set last_logged_in = $2 where id = $1`, [id, date]);
     return result.rows[0];
   }
 

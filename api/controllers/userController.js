@@ -74,7 +74,7 @@ const userController = {
     try {
       const id = parseInt(req.params.id);
       await User.delete(id);
-      return res.status(200).json({ message: 'User deleted or not found', user: deleted});
+      return res.status(200).json({ message: 'User deleted or not found'});
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
