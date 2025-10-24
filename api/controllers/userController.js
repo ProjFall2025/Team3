@@ -68,8 +68,20 @@ const userController = {
       res.status(500).json({ error: error.message });
     }
   },
+
+  update: async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      const updated = await User.update(id, req.body);
+      if (!updated) return res.status(404).json({ message: 'User not found or deleted' });
+      res.status(200).json(updated);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  },
   
   // MARK: Note - due to soft deletion, deleted records do not return anything.
+  // TODO: Allow admins to also delete anyone's user
   delete: async (req, res) => {
     try {
       const id = parseInt(req.params.id);

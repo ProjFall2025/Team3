@@ -82,6 +82,7 @@ const sheetController = {
     }
   },
 
+  // TODO: Allow admins to also delete anyone's sheets
   delete: async (req, res) => {
     try {
       const id = parseInt(req.params.id);

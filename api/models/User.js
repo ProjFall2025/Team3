@@ -63,11 +63,14 @@ class User {
     return rows[0];
   }
 
+  // MARK: Note - when calling, pass the existing value for fields that are not modified.
   static async update(id, userData) {
     const { username, email, password, bio } = userData;
+    const hashedPassword = await bcrypt.hash(password, 10);
+
     const rows = await knex('users')
       .where({ id, deleted: false })
-      .update({ username, email, password, bio })
+      .update({ username, email, password: hashedPassword, bio })
       .returning('*');
     return rows[0];
   }

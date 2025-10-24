@@ -11,8 +11,7 @@ class Comment {
     return rows[0];
   }
 
-  static async update(id, updateData) {
-    const { content, updated_at } = updateData;
+  static async update(id, content, updated_at) {
     const rows = await knex('comments')
       .where({ id, deleted: false })
       .update({ content, updated_at })

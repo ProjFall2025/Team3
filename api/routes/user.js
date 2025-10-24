@@ -29,6 +29,11 @@ router.get('/:id/sheets', userController.getSheets);
 // @access  Public
 router.get('/:id/comments', userController.getComments);
 
+// @route   PATCH /api/user/:id
+// @desc    Update a user
+// @access  Private
+router.patch('/:id', auth, userController.update);
+
 // @route   PATCH /api/user/:id/comments
 // @desc    Make a user an admin
 // @access  Private (Admin obly)
