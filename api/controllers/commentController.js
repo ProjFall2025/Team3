@@ -19,6 +19,15 @@ const commentController = {
     }
   },
 
+  unlike: async (req, res) => {
+    try {
+      const unlike = await Comment.unlike(req.body);
+      res.status(201).json(unlike);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  },
+
   update: async (req, res) => {
     try {
       const id = parseInt(req.params.id);

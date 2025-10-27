@@ -39,14 +39,14 @@ create or replace function num_likes_mimi() returns trigger as
 	begin
 		update comments c
 		set num_likes = num_likes - 1
-		where c.id = new.comment_id;
+		where c.id = old.comment_id;
 
-		return new;
+		return old;
 	end
 	$$ language PLPGSQL;
 	
 create trigger decr_num_likes
-after delete on comment_likes
+before delete on comment_likes
 for each row execute function num_likes_mimi();
 
 
