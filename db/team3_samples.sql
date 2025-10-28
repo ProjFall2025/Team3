@@ -3,7 +3,7 @@ insert into users (username, email, password, bio)
 values
 ('mbrukson', 'michael@example.com', '$2b$10$M70z6x9LPaK3RByWetgsD.hOiuMidCTHJ2S.X4GLDVD9Kkzh2tZoS', 'Music enthusiast and AI researcher.'),
 ('mtesis', 'mtesis@example.com', '$2b$10$M70z6x9LPaK3RByWetgsD.hOiuMidCTHJ2S.X4GLDVD9Kkzh2tZoS', 'Music enthusiast and AI researcher .'),
-('anossof', 'anossof@example.com', '$2b$10$M70z6x9LPaK3RByWetgsD.hOiuMidCTHJ2S.X4GLDVD9Kkzh2tZoS', 'Music enthusiast and AI researcher.'),
+('anosoff', 'anosoff@example.com', '$2b$10$M70z6x9LPaK3RByWetgsD.hOiuMidCTHJ2S.X4GLDVD9Kkzh2tZoS', 'Music enthusiast and AI researcher.'),
 ('jbrahms', 'brahms_the_best@example.com', '$2b$10$M70z6x9LPaK3RByWetgsD.hOiuMidCTHJ2S.X4GLDVD9Kkzh2tZoS', 'Professional pianist.'),
 ('ludb', 'beethoven@example.com', '$2b$10$M70z6x9LPaK3RByWetgsD.hOiuMidCTHJ2S.X4GLDVD9Kkzh2tZoS', 'Best pianist ever.'),
 ('siabassen', 'samir@example.com', '$2b$10$M70z6x9LPaK3RByWetgsD.hOiuMidCTHJ2S.X4GLDVD9Kkzh2tZoS', 'Music teacher with a passion for harmony.'),
