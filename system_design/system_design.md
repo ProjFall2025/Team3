@@ -91,7 +91,7 @@ UML Sequence Diagram for Authentication Process <br>
 ### Authentication API
 
 **POST /api/auth/register**
-_Request:_
+_Request Body:_
 
 ```json
 {
@@ -113,8 +113,8 @@ _Response:_
 }
 ```
 
-**GET /api/auth/validate/user**  
-_Request:_
+**POST /api/auth/validate/user**  
+_Request Body:_
 
 ```json
 { "username": "alice", "email": "alice@example.com" } // either optional, one required
@@ -126,8 +126,8 @@ _Response:_
 { "user": { "id": 1, "password": "hashed_pw", "is_locked": false } }
 ```
 
-**GET /api/auth/validate/password**  
-_Request:_
+**POST /api/auth/validate/password**  
+_Request Body:_
 
 ```json
 { "id": 1, "password": "mypassword" }
@@ -160,7 +160,7 @@ _Response:_
 
 **PATCH /api/user/:id**  
 _Role:_ User (self) or Admin  
-_Request:_
+_Request Body:_
 
 ```json
 {
@@ -203,7 +203,7 @@ _Response:_
 
 **POST /api/user/follow**  
 _Role:_ Authenticated users  
-_Request:_
+_Request Body:_
 
 ```json
 { "follower": 1, "followee": 2 }
@@ -243,7 +243,7 @@ _Response:_
 
 **POST /api/sheet**  
 _Role:_ Authenticated users  
-_Request:_
+_Request Body:_
 
 ```json
 {
@@ -265,7 +265,7 @@ _Response:_
 
 **POST /api/sheet/rate**  
 _Role:_ Authenticated users  
-_Request:_
+_Request Body:_
 
 ```json
 { "user_id": 1, "sheet_id": 10, "rating": 4.5 }
@@ -293,7 +293,7 @@ _Response:_
 { "id": 5, "sheet": 10, "created_by": 1, "content": "Great sheet!" }
 ```
 
-**GET /api/sheet/averages**  
+**GET /api/sheet/:id/averages**  
 _Role:_ Authenticated users  
 _Response:_
 
@@ -319,7 +319,7 @@ _Response:_
 
 **PATCH /api/sheet/:id**  
 _Role:_ User (self) or Admin  
-_Request:_
+_Request Body:_
 
 ```json
 {
@@ -349,7 +349,7 @@ _Response:_
 
 **POST /api/comment**  
 _Role:_ Authenticated users  
-_Request:_
+_Request Body:_
 
 ```json
 { "sheet": 10, "created_by": 1, "content": "Great sheet!" }
@@ -362,8 +362,9 @@ _Response:_
 ```
 
 **POST /api/comment/like**  
+**POST /api/comment/unlike**  
 _Role:_ Authenticated users  
-_Request:_
+_Request Body:_
 
 ```json
 { "user_id": 1, "comment_id": 5 }

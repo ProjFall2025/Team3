@@ -18,7 +18,7 @@ router.post('/like', auth, commentController.like);
 // @access  Private
 router.patch('/:id', auth, commentController.update);
 
-// @route   POST /api/comment/unlike
+// @route   DELETE /api/comment/unlike
 // @desc    Unlike a comment
 // @access  Private
 router.delete('/unlike', auth, commentController.unlike);
