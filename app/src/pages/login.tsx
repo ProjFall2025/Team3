@@ -44,6 +44,7 @@ export default function Login() {
             if (!user || user.is_locked) {
                 console.log('User not found or account is locked');
                 setValidUsername(false);
+                return;
             }
             setValidUsername(true);
             localStorage.setItem('id', user.id.toString());
@@ -68,6 +69,7 @@ export default function Login() {
             if (!response.data || !response.data.token) {
                 console.log('Invalid password');
                 setValidPassword(false);
+                return;
             }
             localStorage.setItem('token', response.data.token);
             console.log('Login successful, token stored.');
