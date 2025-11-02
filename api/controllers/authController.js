@@ -23,7 +23,7 @@ const authController = {
       if (username) user = await User.getByUsername(username);
       else          user = await User.getByEmail(email);
 
-      if (user.length === 0) {
+      if (user === void 0) {
         return res.status(401).json({ message: 'Invalid username or email.' });
       }
       if (user.is_locked === true) {
