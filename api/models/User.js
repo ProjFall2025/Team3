@@ -80,6 +80,11 @@ class User {
     return rows[0];
   }
 
+  static async unlock(id) {
+    const rows = await knex('users').where({ id, deleted: false }).update({ num_failed_attempts: 0, is_locked: false }).returning('*');
+    return rows[0];
+  }
+
   static async restore(id) {
     const rows = await knex('users').where({ id }).update({ deleted: false }).returning('*');
     return rows[0];
