@@ -13,6 +13,7 @@ create materialized view sheets_with_rating as
 select s.*, coalesce(avg(r.rating),0) as avg_rating -- coalesce() here assigns 0 to sheets with 0 ratings
 from sheets s
 left join sheet_ratings r on s.id = r.sheet_id
+where s.deleted = false
 group by s.id;
 
 create unique index idx_sheets_with_rating_id on sheets_with_rating (id);
