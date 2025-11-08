@@ -3,5 +3,7 @@
     "jsx": "react-jsx",
     "lib": ["es2015", "dom"],
     // other options...
+    "allowImportingTsExtensions": true,
+    "noEmit": true
   }
 }
