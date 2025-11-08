@@ -10,3 +10,20 @@ export type User = {
     created_at: string;
 };
 
+export type Sheet = {
+    id: number;
+    title: string;
+    artist: string;
+    description: string;
+    instrument: string;
+    genre: string;
+    visibility: 'public' | 'private';
+    created_at: string;
+    updated_at: string;
+    created_by: number;
+    comments_enabled: boolean;
+    musicxml: string;
+    num_downloads: number;
+    deleted: boolean;
+}
+

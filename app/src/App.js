@@ -2,6 +2,7 @@ import './App.css';
 import { DummyComponent } from './components/dummy.tsx';
 import Home from './pages/home.tsx';
 import Login from './pages/login.tsx';
+import Navbar from './components/navbar.tsx';
 
 // React Router
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
@@ -29,12 +30,7 @@ function App() {
 
   return (
     <>
-      <div className="nav-links" style={{ display: 'flex', gap: '50px', justifyContent: 'center', alignItems: 'center', marginBottom: '20px', fontSize: '1.5rem', backgroundColor: 'black', padding: '10px 0', color: 'white' }}>
-        <div className={"logo"} style={{ fontFamily: '"Notable", sans-serif', fontSize: '2rem', paddingBottom: '8px' }}>KNOWTES</div>
-        <div><a href="/" style={{ textDecoration: 'none', color: 'inherit' }}>Home</a></div>
-        <div><a href="/about" style={{ textDecoration: 'none', color: 'inherit' }}>About</a></div>
-        <div><a href="/login" style={{ textDecoration: 'none', color: 'inherit' }}>Login</a></div>
-      </div>
+      <Navbar />
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
