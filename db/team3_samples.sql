@@ -1,16 +1,16 @@
 -- users
 insert into users (username, email, password, bio)
 values
-('mbrukson', 'michael@example.com', 'hashed_pw_1', 'Music enthusiast and AI researcher.'),
-('mtesis', 'mtesis@example.com', 'hashed_pw_2', 'Music enthusiast and AI researcher .'),
-('anossof', 'anossof@example.com', 'hashed_pw_3', 'Music enthusiast and AI researcher.'),
-('jbrahms', 'brahms_the_best@example.com', 'hashed_pw_4', 'Professional pianist.'),
-('ludb', 'beethoven@example.com', 'hashed_pw_5', 'Best pianist ever.'),
-('siabassen', 'samir@example.com', 'hashed_pw_6', 'Music teacher with a passion for harmony.'),
-('cleague', 'league@example.com', 'hashed_pw_7', 'Coding and beats.'),
-('ychaya', 'yair@example.com', 'hashed_pw_8', 'Blending technology with rhythm.'),
-('gmichael', 'georgie@example.com', 'hashed_pw_9', 'The music seems so loud. Gotta have faith.'),
-('PTchaikovsky', 'genius@example.com', 'hashed_pw_10', 'Я люблю чай.');
+('mbrukson', 'michael@example.com', '$2b$10$M70z6x9LPaK3RByWetgsD.hOiuMidCTHJ2S.X4GLDVD9Kkzh2tZoS', 'Music enthusiast and AI researcher.'),
+('mtesis', 'mtesis@example.com', '$2b$10$M70z6x9LPaK3RByWetgsD.hOiuMidCTHJ2S.X4GLDVD9Kkzh2tZoS', 'Music enthusiast and AI researcher .'),
+('anosoff', 'anosoff@example.com', '$2b$10$M70z6x9LPaK3RByWetgsD.hOiuMidCTHJ2S.X4GLDVD9Kkzh2tZoS', 'Music enthusiast and AI researcher.'),
+('jbrahms', 'brahms_the_best@example.com', '$2b$10$M70z6x9LPaK3RByWetgsD.hOiuMidCTHJ2S.X4GLDVD9Kkzh2tZoS', 'Professional pianist.'),
+('ludb', 'beethoven@example.com', '$2b$10$M70z6x9LPaK3RByWetgsD.hOiuMidCTHJ2S.X4GLDVD9Kkzh2tZoS', 'Best pianist ever.'),
+('siabassen', 'samir@example.com', '$2b$10$M70z6x9LPaK3RByWetgsD.hOiuMidCTHJ2S.X4GLDVD9Kkzh2tZoS', 'Music teacher with a passion for harmony.'),
+('cleague', 'league@example.com', '$2b$10$M70z6x9LPaK3RByWetgsD.hOiuMidCTHJ2S.X4GLDVD9Kkzh2tZoS', 'Coding and beats.'),
+('ychaya', 'yair@example.com', '$2b$10$M70z6x9LPaK3RByWetgsD.hOiuMidCTHJ2S.X4GLDVD9Kkzh2tZoS', 'Blending technology with rhythm.'),
+('gmichael', 'georgie@example.com', '$2b$10$M70z6x9LPaK3RByWetgsD.hOiuMidCTHJ2S.X4GLDVD9Kkzh2tZoS', 'The music seems so loud. Gotta have faith.'),
+('PTchaikovsky', 'genius@example.com', '$2b$10$M70z6x9LPaK3RByWetgsD.hOiuMidCTHJ2S.X4GLDVD9Kkzh2tZoS', 'Я люблю чай.');
 
 -- models
 insert into models (name, path, description)

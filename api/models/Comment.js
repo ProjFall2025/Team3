@@ -24,6 +24,11 @@ class Comment {
     return rows[0];
   }
 
+  static async unlike({ user_id, comment_id }) {
+    const rows = await knex('comment_likes').where({ user_id, comment_id }).del().returning('*');
+    return rows[0];
+  }
+
   static async delete(id) {
     const rows = await knex('comments').where({ id }).del().returning('*');
     return rows[0];

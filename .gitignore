@@ -1,3 +1,5 @@
 node_modules/
 .env
+/*.cmd
+/*.ps1
 models/

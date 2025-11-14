@@ -23,7 +23,7 @@ const authController = {
       if (username) user = await User.getByUsername(username);
       else          user = await User.getByEmail(email);
 
-      if (user.length === 0) {
+      if (user === void 0) {
         return res.status(401).json({ message: 'Invalid username or email.' });
       }
       if (user.is_locked === true) {
@@ -66,7 +66,8 @@ const authController = {
 
   getProfile: async (req, res) => {
     try {
-      const user = await User.getById(req.user && req.user.id);
+      const userId = parseInt(req.params.id);
+      const user = await User.getById(userId);
       res.status(200).json(user);
     } catch (error) {
       res.status(500).json({ error: error.message });

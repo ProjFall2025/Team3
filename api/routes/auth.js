@@ -8,19 +8,19 @@ const auth = require('../middleware/auth');
 // @access  Public
 router.post('/register', authController.register);
 
-// @route   GET /api/auth/validate/user
+// @route   POST /api/auth/validate/user
 // @desc    Validate username/email
 // @access  Public
-router.get('/validate/user', authController.validateUser);
+router.post('/validate/user', authController.validateUser);
 
-// @route   GET /api/auth/validate/password
+// @route   POST /api/auth/validate/password
 // @desc    Validate password
 // @access  Public
-router.get('/validate/password', authController.validatePassword);
+router.post('/validate/password', authController.validatePassword);
 
-// @route   GET /api/auth/profile
+// @route   GET /api/auth/profile/:id
 // @desc    Get user profile
 // @access  Private
-router.get('/profile', auth, authController.getProfile);
+router.get('/profile/:id', auth, authController.getProfile);
 
 module.exports = router;

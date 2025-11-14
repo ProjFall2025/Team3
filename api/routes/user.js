@@ -34,9 +34,14 @@ router.get('/:id/comments', userController.getComments);
 // @access  Private
 router.patch('/:id', auth, userController.update);
 
+// @route   PATCH /api/user/:id/unlock
+// @desc    Unlock a user
+// @access  Private (Admin only)
+router.patch('/:id/unlock', auth, role('admin'), userController.unlock);
+
 // @route   PATCH /api/user/:id/comments
 // @desc    Make a user an admin
-// @access  Private (Admin obly)
+// @access  Private (Admin only)
 router.patch('/:id', auth, role('admin'), userController.makeAdmin);
 
 // @route   DELETE /api/user/:id

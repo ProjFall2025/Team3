@@ -63,8 +63,19 @@ const userController = {
       const id = parseInt(req.params.id);
       const user = await User.makeAdmin(id);
       if (!user) return res.status(404).json({ message: 'No user found' });
-      res.status(200).json(comments);
+      res.status(200).json(user);
     } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  },
+
+  unlock: async(req, res) => {
+    try{
+      const id = parseInt(req.params.id);
+      const user = await User.unlock(id);
+      if (!user) return res.status(404).json({ message: 'No user found' });
+      res.status(200).json(user);
+    }catch (error) {
       res.status(500).json({ error: error.message });
     }
   },

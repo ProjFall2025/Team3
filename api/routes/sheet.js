@@ -13,15 +13,15 @@ router.post('/', sheetController.create);
 // @access  Private
 router.post('/rate', auth, sheetController.rate);
 
-// @route   GET /api/sheet/comments/:id
+// @route   GET /api/sheet/:id/comments
 // @desc    Get comments for sheet
 // @access  Public
 router.get('/:id/comments', sheetController.getComments);
 
-// @route   GET /api/sheet/averages
+// @route   GET /api/sheet/:id/averages
 // @desc    View sheets with their averages
 // @access  Public
-router.get('/averages', sheetController.getAverages);
+router.get('/:id/averages', sheetController.getAverages);
 
 // @route   GET /api/sheet/topten/downloads
 // @desc    View top ten sheets by number of downloads
@@ -34,7 +34,7 @@ router.get('/topten/downloads', sheetController.getTopTenDownloads);
 router.get('/topten/averages', sheetController.getTopTenAverages);
 
 // @route   GET /api/sheet/:id
-// @desc    Follow a user
+// @desc    Get a sheet
 // @access  Private
 router.get('/:id', auth, sheetController.getById);
 
