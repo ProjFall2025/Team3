@@ -27,3 +27,11 @@ export type Sheet = {
     deleted: boolean;
 }
 
+export type Model = {
+    id: number;
+    name: string;
+    path: string;
+    description: string;
+    created_at: string;
+}
+

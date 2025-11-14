@@ -2,9 +2,11 @@ import axios from "axios"
 import * as tf from "@tensorflow/tfjs";
 import * as zip from "@zip.js/zip.js"
 
+import { Model } from '../types';
+
 export const loadModel = async (filepath: string): Promise<tf.GraphModel> => {
-  const response = await axios.get("/api/model/load", {
-    filepath: filepath
+  const response = await axios.post("/api/model/load", {
+   data: { filepath: filepath }
   });
 
   const modelPayload = response.data?.model;

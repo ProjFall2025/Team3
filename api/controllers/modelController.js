@@ -12,7 +12,7 @@ const modelsController = {
 
   loadModel: async (req, res) => {
     try {
-      const model = await Model.getModel(req.body)
+      const model = await Model.getModel(req.body.data)
       if (!model) return res.status(404).json({ message: 'No model found' });
       return res.status(200).json({ model: model })
     } catch (error) {
