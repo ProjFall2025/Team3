@@ -23,7 +23,7 @@ create table login_attempts (
 create table models (
 	id serial primary key,
 	name varchar(20) not null,
-	tfjs varchar(10) default null, -- NOTE: type TBD
+	path varchar(50) default null, -- NOTE: type TBD
 	description varchar(400) default '',
 	created_at timestamp default CURRENT_TIMESTAMP
 );

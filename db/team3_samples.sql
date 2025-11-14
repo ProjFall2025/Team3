@@ -13,9 +13,9 @@ values
 ('PTchaikovsky', 'genius@example.com', 'hashed_pw_10', 'Я люблю чай.');
 
 -- models
-insert into models (name, description)
+insert into models (name, path, description)
 values
-('TempModel', 'Placeholder for models');
+('CREPE-Large', "models/crepe_large", 'Placeholder for models');
 
 -- sheets
 insert into sheets (created_by, model, title, artist, description, instrument, genre, comments_enabled, visibility)

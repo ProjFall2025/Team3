@@ -1,6 +1,9 @@
 {
   "compilerOptions": {
     "jsx": "react-jsx",
-    // other options...
+    "lib": [ "es2015", "dom" ],
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
+    "downlevelIteration": true // for iterating through generator function in Utils.tsx
   }
 }

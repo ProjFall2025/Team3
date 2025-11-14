@@ -22,7 +22,7 @@ const ROOT_HTML = path.join(__dirname, 'app/build/index.html');
 // import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 // React app
-const routes = ['/', '/about', '/login'];
+const routes = ['/', '/about', '/login', '/audiotest'];
 app.get(routes, (req, res) => { res.sendFile(ROOT_HTML); });
 
 

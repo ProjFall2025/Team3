@@ -1,5 +1,6 @@
 import './App.css';
 import { DummyComponent } from './components/dummy.tsx';
+import { Tester } from './components/Tester.tsx'; 
 
 // React Router
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
@@ -20,6 +21,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/login" element={<DummyComponent />} />
+        <Route path="/audiotest" element={<Tester />}/>
       </Routes>
     </Router>
   );

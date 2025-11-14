@@ -6,12 +6,14 @@
   "scripts": {
     "dev": "node index.js",
     "build-react": "cd app && npm run build",
+    "reload": "npm run build-react && npm run dev",
     "watch": "nodemon --exec \"cd app && npm run build && cd .. && nodemon index.js\" -e js,ts,tsx,css --ignore app/build/ --watch app/src",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "archiver": "^7.0.1",
     "bcrypt": "^6.0.0",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
@@ -19,8 +21,10 @@
     "jsonwebtoken": "^9.0.2",
     "knex": "^3.1.0",
     "nodemon": "^3.1.10",
+    "path": "^0.12.7",
     "pg": "^8.16.3",
-    "react-router-dom": "^7.9.2"
+    "react-router-dom": "^7.9.2",
+    "stream": "^0.0.3"
   },
   "devDependencies": {
     "@types/react": "^19.1.13",

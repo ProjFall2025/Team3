@@ -7,4 +7,9 @@ const modelController = require('../controllers/modelController');
 // @access  Public
 router.get('/', modelController.getAllModels);
 
+// @route   get /api/model/load
+// @desc    load one model by file path
+// @access  Public
+router.get('/load', modelController.loadModel);
+
 module.exports = router;
