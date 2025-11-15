@@ -21,8 +21,9 @@ export const loadModel = async (filepath: string): Promise<tf.GraphModel> => {
   // Use zip.js to read the zip from the Uint8Array
   const reader = new zip.ZipReader(new zip.Uint8ArrayReader(zipped));
   const entries = await reader.getEntries();
+  console.log(entries);
 
-  // Convert entries into File objects (name must match shard/model.json names)
+  // Convert entries into File objects
   const files: File[] = [];
   for (const entry of entries) {
     if (entry.directory) continue;
@@ -33,12 +34,17 @@ export const loadModel = async (filepath: string): Promise<tf.GraphModel> => {
   }
 
   await reader.close();
-
+  
   // Ensure model.json is first in the list
   files.sort((a, b) => (a.name === "model.json" ? -1 : b.name === "model.json" ? 1 : 0));
+  console.log(files);
+  
 
-  // Load the model using browserFiles IOHandler (works for both GraphModel and LayersModel saved in TFJS format)
-  const model = (await tf.loadGraphModel(tf.io.browserFiles(files as unknown as File[]))) as tf.GraphModel;
+  await tf.ready();
+  // Load the model using browserFiles IOHandler 
+  // TODO: Find proper graph model, not one that is broken.
+  const model = (await tf.loadGraphModel(tf.io.browserFiles(files))) as tf.GraphModel;
+  console.log(model);
 
   return model;
 }

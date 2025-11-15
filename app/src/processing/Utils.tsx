@@ -38,7 +38,7 @@ export function* slidingWindow(samples: Float32Array, bufferSize: number, hopSiz
     start += hopSize;
     frameIndex += 1;
   }
-  // Optionally yield last padded frame if there is a tail
+  
   if (start < len) {
     const tail = samples.subarray(start, len);
     const padded = new Float32Array(bufferSize);
