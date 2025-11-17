@@ -2,6 +2,7 @@ import './App.css';
 import { DummyComponent } from './components/dummy.tsx';
 import Home from './pages/home.tsx';
 import Login from './pages/login.tsx';
+import Register from './pages/register.tsx';
 import Navbar from './components/navbar.tsx';
 import { Tester } from './components/Tester.tsx'; 
 
@@ -37,6 +38,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
           <Route path="/audiotest" element={<Tester />}/>
       </Routes>
       </Router>

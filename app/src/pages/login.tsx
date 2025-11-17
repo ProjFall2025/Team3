@@ -173,6 +173,9 @@ export default function Login() {
             </>
             : <h2>Login successful! Redirecting...</h2>
             }
+            <div className={tw.fluidContainer + tw.flexCenter}>
+                <h2>Don't have an account? <a href="/register" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Register</a></h2>
+            </div>
         </div>
     );
 }

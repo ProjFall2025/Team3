@@ -23,7 +23,7 @@ const ROOT_HTML = path.join(__dirname, 'app/build/index.html');
 // import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 // React app
-const routes = ['/', '/about', '/login', '/audiotest'];
+const routes = ['/', '/about', '/login', '/register', '/audiotest'];
 app.get(routes, (req, res) => { res.sendFile(ROOT_HTML); });
 
 // get server IP address
@@ -41,7 +41,7 @@ function getServerIP() {
 }
 
 // start server
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 let server = app.listen(PORT,() => {
     const serverAddress = server.address();
     console.log(`Visit at: http://${getServerIP()}:${serverAddress.port}/`)
