@@ -10,21 +10,21 @@ export function Tester() {
     const [model, setModel] = useState<tf.GraphModel | null>(null)
     const [loadingModel, setLoadingModel] = useState(false)
 
-    useEffect(() => {
-        (async () => {
-            try {
-                setLoadingModel(true)
-                const m = await loadModel("models/crepe_large")
-                await tf.ready()
-                setModel(m)
-                console.log("Model loaded", m)
-            } catch (err) {
-                console.error("Failed to load model:", err)
-            } finally {
-                setLoadingModel(false)
-            }
-        })()
-    }, [])
+    // useEffect(() => {
+    //     (async () => {
+    //         try {
+    //             setLoadingModel(true)
+    //             const m = await loadModel("models/crepe_large")
+    //             await tf.ready()
+    //             setModel(m)
+    //             console.log("Model loaded", m)
+    //         } catch (err) {
+    //             console.error("Failed to load model:", err)
+    //         } finally {
+    //             setLoadingModel(false)
+    //         }
+    //     })()
+    // }, [])
 
     const onFileChange = (e: ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0]
@@ -36,6 +36,8 @@ export function Tester() {
 
             const { denoised, sampleRate } = await handleFile(result);
             console.log(`Number samples:, ${denoised.length}, sampleRate:, ${sampleRate}`)
+            
+            predict(denoised, sampleRate);
             
             const audioCtx = getAudioContext();
 
