@@ -45,10 +45,7 @@ const PORT = process.env.PORT || 5000;
 let server = app.listen(PORT,() => {
     const serverAddress = server.address();
 
-    const { exec } = require('child_process');
-    exec(`ipv4_qr -p ${serverAddress.port}`, (error, stdout, stderr) => {
-      console.log(stdout)
-    });
+
 
     console.log(`Visit at: http://${getServerIP()}:${serverAddress.port}/`)
     console.log('Press Ctrl+C to quit.');
