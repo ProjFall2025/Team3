@@ -44,6 +44,9 @@ function getServerIP() {
 const PORT = process.env.PORT || 5000;
 let server = app.listen(PORT,() => {
     const serverAddress = server.address();
+
+
+
     console.log(`Visit at: http://${getServerIP()}:${serverAddress.port}/`)
     console.log('Press Ctrl+C to quit.');
 });

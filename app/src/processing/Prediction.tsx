@@ -1,6 +1,9 @@
 import axios from "axios"
+import meyda from "meyda"
 import * as tf from "@tensorflow/tfjs";
 import * as zip from "@zip.js/zip.js"
+
+import { getAudioContext } from "./Utils";
 
 import { Model } from '../types';
 
@@ -49,7 +52,28 @@ export const loadModel = async (filepath: string): Promise<tf.GraphModel> => {
   return model;
 }
 
-export const predict = async (model: tf.GraphModel, input: tf.Tensor) => {
-  const output = model.predict(input);
-  return output;
+export async function predict(input: tf.Tensor, model: tf.GraphModel): Promise<tf.Tensor | tf.Tensor[] | tf.NamedTensorMap>;
+export async function predict(audio: Float32Array, sampleRate: number): Promise<void>;
+
+export async function predict(
+  input: tf.Tensor | Float32Array,
+  modelOrSampleRate: tf.GraphModel | number
+): Promise<tf.Tensor | tf.Tensor[] | tf.NamedTensorMap | void> {
+  if (typeof (modelOrSampleRate as any).predict === "function") {
+    const model = modelOrSampleRate as tf.GraphModel;
+    return { prediction: model.predict(input as tf.Tensor) as tf.Tensor };
+  }
+
+  const bufferSize = 1024;
+  const hopSize = 512;
+
+  const sampleRate = modelOrSampleRate as number;
+
+  console.log((input as Float32Array), sampleRate);
+
+  const chroma = meyda.extract("chroma", (input as Float32Array).slice(300, 364));
+
+  console.log(chroma);
+
+  return {};
 }
