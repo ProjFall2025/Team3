@@ -43,8 +43,7 @@ const sheetController = {
 
   getAverages: async (req, res) => {
     try {
-      const id = parseInt(req.params.id);
-      const averages = await Sheet.getAverages(id);
+      const averages = await Sheet.getAverages();
       if (!averages || averages.length === 0) return res.status(404).json({ message: 'No sheets available' });
       res.status(200).json(averages);
     } catch (error) {

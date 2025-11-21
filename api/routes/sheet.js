@@ -18,10 +18,10 @@ router.post('/rate', auth, sheetController.rate);
 // @access  Public
 router.get('/:id/comments', sheetController.getComments);
 
-// @route   GET /api/sheet/:id/averages
+// @route   GET /api/sheet/averages
 // @desc    View sheets with their averages
 // @access  Public
-router.get('/:id/averages', sheetController.getAverages);
+router.get('/averages', sheetController.getAverages);
 
 // @route   GET /api/sheet/topten/downloads
 // @desc    View top ten sheets by number of downloads
