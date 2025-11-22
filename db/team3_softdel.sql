@@ -3,7 +3,7 @@
 create or replace function _soft_delete_user() returns trigger as
 	$$
 	begin
-		update users
+		update public.users
 		set deleted = true
 		where id = old.id;
 		
@@ -25,7 +25,7 @@ for each row execute function _soft_delete_user();
 create or replace function _cascade_s_delete_sheet(user_id integer) returns void as 
 	$$
 	begin
-		update sheets 
+		update public.sheets 
 		set deleted = true
 		where created_by = user_id;
 	end
@@ -36,7 +36,7 @@ create or replace function _cascade_s_delete_sheet(user_id integer) returns void
 create or replace function _users_cascade_s_delete_comment(user_id integer) returns void as 
 	$$
 	begin
-		update comments 
+		update public.comments 
 		set deleted = true
 		where created_by = user_id;
 	end
@@ -46,7 +46,7 @@ create or replace function _users_cascade_s_delete_comment(user_id integer) retu
 create or replace function _soft_delete_sheet() returns trigger as
 	$$
 	begin
-		update sheets
+		update public.sheets
 		set deleted = true
 		where id = old.id and not deleted;
 
@@ -64,7 +64,7 @@ for each row execute function _soft_delete_sheet();
 create or replace function _sheets_cascade_s_delete_comment(sheet_id integer) returns void as
 	$$
 	begin
-		update comments
+		update public.comments
         set deleted = TRUE
         where sheet = sheet_id;
 	end
@@ -77,7 +77,7 @@ create or replace function _sheets_cascade_s_delete_comment(sheet_id integer) re
 create or replace function _soft_delete_comment() returns trigger as
 	$$
 	begin
-		update comments
+		update public.comments
 		set deleted = true
 		where id = old.id and not deleted;
 

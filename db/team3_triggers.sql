@@ -3,7 +3,7 @@
 create or replace function num_downloads_plpl() returns trigger as
 	$$
 	begin
-		update sheets s
+		update public.sheets s
 		set num_downloads = num_downloads + 1
 		where s.id = new.sheet_id;
 
@@ -20,7 +20,7 @@ for each row execute function num_downloads_plpl();
 create or replace function num_likes_plpl() returns trigger as
 	$$
 	begin
-		update comments c
+		update public.comments c
 		set num_likes = num_likes + 1
 		where c.id = new.comment_id;
 
@@ -37,7 +37,7 @@ for each row execute function num_likes_plpl();
 create or replace function num_likes_mimi() returns trigger as
 	$$
 	begin
-		update comments c
+		update public.comments c
 		set num_likes = num_likes - 1
 		where c.id = old.comment_id;
 
@@ -55,7 +55,7 @@ for each row execute function num_likes_mimi();
 create or replace function check_num_attempts() returns trigger as
 	$$
 	begin
-		update users u
+		update public.users u
 		set 
 			num_failed_attempts = case when new.succeeded then 0 else u.num_failed_attempts + 1 end,
 			is_locked = case 
