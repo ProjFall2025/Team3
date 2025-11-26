@@ -137,6 +137,7 @@ export default function Login() {
             <>
             <h1 className={tw.header}>Log In</h1>
             <form className={tw.form}>
+                {/* Username/email field and button */}
                 <input className={tw.inputField + (validUsername ? "hidden disabled" : "")} 
                         type="text" id="username" name="username" 
                         placeholder='Enter username or email' 
@@ -154,6 +155,9 @@ export default function Login() {
                 <button ref={usernameButtonRef} className={tw.button.primary + (validUsername ? "hidden disabled" : "") + tw.button.inactive} onClick={checkUser}>Next</button>
                 <OrElement />
                 <GoogleButton />
+                <h2 className={(validUsername ? "hidden" : "")}>Don't have an account? <a href="/register" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Register</a></h2>
+                
+                {/* Password field and button, shown only after username is validated */}
                 <input className={tw.inputField + (validUsername ? "" : "hidden disabled")} 
                         type="password" id="password" name="password" 
                         placeholder='Enter password' 
@@ -173,9 +177,6 @@ export default function Login() {
             </>
             : <h2>Login successful! Redirecting...</h2>
             }
-            <div className={tw.fluidContainer + tw.flexCenter}>
-                <h2>Don't have an account? <a href="/register" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Register</a></h2>
-            </div>
         </div>
     );
 }
