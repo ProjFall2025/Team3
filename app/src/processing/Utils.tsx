@@ -1,3 +1,4 @@
+import { add } from "@tensorflow/tfjs";
 
 let audioCtx: AudioContext | null = null;
 export function getAudioContext(): AudioContext {
@@ -152,4 +153,121 @@ export const handleFile = async (file: ArrayBuffer): Promise<{ denoised: Float32
     console.error("Processing failed: ", e);
     return undefined;
   }
+};
+
+
+// TODO: Use powerSpectrum to detect octave.
+// TODO: Find distance between peaks/divide total length by number of notes to determine BPM
+export const combNotes = (
+  frames: Array<{ chroma: number[]; loudness: any; powerSpectrum: Float32Array, frame: Float32Array }>,
+  bufferSize: number,
+  hopSize: number,
+  sampleRate: number = 16000,
+  opts?: { minDurationMs?: number; silenceDeltaDb?: number }
+) : Array<{
+  pitchClass: number;
+  durationFrames: number;
+  startTime: number; // seconds
+  duration: number; // seconds
+  avgLoudness: number;
+}> => {
+  function addCurrentNote(){
+    const duration = (current.durationFrames * hopSize) / sampleRate;
+    const startTime = (current.startFrame * hopSize) / sampleRate;
+    if (duration * 1000 >= minDurationMs) {
+      notes.push({
+        pitchClass: current.pitchClass,
+        startFrame: current.startFrame,
+        durationFrames: current.durationFrames,
+        startTime,
+        duration,
+        avgLoudness: current.loudnessSum / current.loudnessCount
+      });
+    }
+
+    current = null;
+  }
+
+  const minDurationMs: number = opts?.minDurationMs ?? 30; // ignore events shorter than this
+  const silenceDeltaDb: number = opts?.silenceDeltaDb ?? 30; // how far below peak counts as silence (dB)
+
+  const loudnessArr: Array<number> = frames.map(f => {return f.loudness.total;});
+
+  const peakLoudness: number = Math.max(...loudnessArr.filter(v => Number.isFinite(v)));
+  const silenceThreshold: number = peakLoudness - silenceDeltaDb;
+
+  // console.log(`loudness arr: ${loudnessArr}`);
+  console.log(`peak loudness: ${peakLoudness}`);
+  console.log(`silence delta: ${silenceDeltaDb}`);
+  console.log(`silence threshold: ${silenceThreshold}`);
+
+  const notes: Array<{
+    pitchClass: number;
+    startFrame: number;
+    durationFrames: number;
+    startTime: number;
+    duration: number;
+    avgLoudness: number;
+  }> = [];
+
+  let current = null;
+
+  for (let i = 0; i < frames.length; i++) {
+    const f = frames[i];
+    const loud: number = loudnessArr[i];
+    // Probably a redundant check, given that audio is always preprocessed and denoised.
+    const voiced: boolean = Number.isFinite(loud) && loud > silenceThreshold;
+
+    let pitchClass: number = -1;
+
+    // choose max chroma entry
+    let maxIdx: number = 0;
+    let maxVal: number = f.chroma[0];
+    for (let j = 1; j < f.chroma.length; j++) {
+      if (f.chroma[j] > maxVal) { maxVal = f.chroma[j]; maxIdx = j; }
+    }
+
+    // only accept pitch if chroma energy significant relative to sum
+    const sumChroma = f.chroma.reduce((a, b) => a + Math.abs(b), 0) || 1e-12;
+    if (maxVal / sumChroma > 0.15) {
+      pitchClass = maxIdx;
+    } else {
+      // weak tonal content => treat as unvoiced
+      pitchClass = -1;
+    }
+  
+    if (voiced && pitchClass >= 0) {
+      if (current === null) {
+        // start new note
+        current = {
+          pitchClass,
+          startFrame: i,
+          durationFrames: 1,
+          loudnessSum: loud,
+          loudnessCount: 1
+        };
+
+      } else {
+        // continue if same pitch; otherwise end and start new
+        if (pitchClass === current.pitchClass) {
+          current.durationFrames++;
+          current.loudnessSum += loud;
+          current.loudnessCount++;
+        } else {
+          addCurrentNote();
+        }
+      }
+
+    } else {
+      if (current !== null) {
+        addCurrentNote()
+      }
+    }
+  }
+
+  if (current !== null) {
+    addCurrentNote();
+  }
+
+  return notes;
 };
