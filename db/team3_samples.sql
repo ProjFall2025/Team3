@@ -15,56 +15,181 @@ values
 -- models
 insert into models (name, path, description)
 values
-('CREPE-Large', "models/crepe_large", 'Placeholder for models');
+('Meyda', 'models/--', 'Algorithm alternative');
 
 -- sheets
 insert into sheets (created_by, model, title, artist, description, instrument, genre, comments_enabled, visibility)
 values
-(1, 1, 'Careless Whispers', 'George Michael', 'The best song of all time.', 'Saxophone', 'Soul', false, 'public'),
-(1, 1, 'Carribean Queen', 'Billy Ocean', 'Carribean Queen by Billy Ocean.', 'Guitar', 'Classic Soul', true, 'follower'),
-(2, 1, 'Gimme Gimme GImme', 'Abba', 'Give me more.', 'Piano', 'Electronic', true, 'private'),
-(3, 1, 'War Pigs', 'Black Sabbath', 'A beautiful etude by black sabbath.', 'Piano', 'Soul', false, 'private'),
-(3, 1, 'I Was Made For Lovin You', 'Kiss', 'A moving violin solo.', 'Violin', 'Classical', true, 'public'),
-(6, 1, 'Around The World', 'Daft Punk', 'My favorite piece, ever.', 'Keyboard', 'Rock', false, 'public'),
-(7, 1, 'Technologic', 'Daft Punk', 'Harder Better Faster Stronger', 'Synth', 'EDM', false, 'public'),
-(8, 1, 'Father Figure', 'George Michael', 'Father figure my george michael, made by model 1!', 'Bass', 'Blues', true, 'public'),
-(9, 1, 'Mamma Mia', 'Abba', 'A vocal ensemble arrangement.', 'Voice', 'Choral', true, 'public'),
-(10, 1, 'Waterloo', 'Abba', 'Experimental piece with algorithmic rhythms.', 'Piano', 'Experimental', false, 'public');
+((select id from users where username = 'mbrukson'), (select id from models where name = 'Meyda'), 'Careless Whispers', 'George Michael', 'The best song of all time.', 'Saxophone', 'Soul', false, 'public'),
+((select id from users where username = 'mbrukson'), (select id from models where name = 'Meyda'), 'Carribean Queen', 'Billy Ocean', 'Carribean Queen by Billy Ocean.', 'Guitar', 'Classic Soul', true, 'follower'),
+((select id from users where username = 'mtesis'), (select id from models where name = 'Meyda'), 'Gimme Gimme GImme', 'Abba', 'Give me more.', 'Piano', 'Electronic', true, 'private'),
+((select id from users where username = 'anosoff'), (select id from models where name = 'Meyda'), 'War Pigs', 'Black Sabbath', 'A beautiful etude by black sabbath.', 'Piano', 'Soul', false, 'private'),
+((select id from users where username = 'anosoff'), (select id from models where name = 'Meyda'), 'I Was Made For Lovin You', 'Kiss', 'A moving violin solo.', 'Violin', 'Classical', true, 'public'),
+((select id from users where username = 'siabassen'), (select id from models where name = 'Meyda'), 'Around The World', 'Daft Punk', 'My favorite piece, ever.', 'Keyboard', 'Rock', false, 'public'),
+((select id from users where username = 'cleague'), (select id from models where name = 'Meyda'), 'Technologic', 'Daft Punk', 'Harder Better Faster Stronger', 'Synth', 'EDM', false, 'public'),
+((select id from users where username = 'ychaya'), (select id from models where name = 'Meyda'), 'Father Figure', 'George Michael', 'Father figure my george michael, made by model 1!', 'Bass', 'Blues', true, 'public'),
+((select id from users where username = 'gmichael'), (select id from models where name = 'Meyda'), 'Mamma Mia', 'Abba', 'A vocal ensemble arrangement.', 'Voice', 'Choral', true, 'public'),
+((select id from users where username = 'PTchaikovsky'), (select id from models where name = 'Meyda'), 'Waterloo', 'Abba', 'Experimental piece with algorithmic rhythms.', 'Piano', 'Experimental', false, 'public');
 
 -- user_follows
 insert into user_follows (follower, followee)
 values
-(2, 1), (3, 1), (4, 1), (1, 4), (1, 2),
-(5, 6), (6, 7), (7, 5), (8, 9), (9, 8);
+((select id from users where username = 'mtesis'), (select id from users where username = 'mbrukson')),
+((select id from users where username = 'anosoff'), (select id from users where username = 'mbrukson')),
+((select id from users where username = 'jbrahms'), (select id from users where username = 'mbrukson')),
+((select id from users where username = 'mbrukson'), (select id from users where username = 'jbrahms')),
+((select id from users where username = 'mbrukson'), (select id from users where username = 'mtesis')),
+((select id from users where username = 'ludb'), (select id from users where username = 'siabassen')),
+((select id from users where username = 'siabassen'), (select id from users where username = 'cleague')),
+((select id from users where username = 'cleague'), (select id from users where username = 'ludb')),
+((select id from users where username = 'ychaya'), (select id from users where username = 'gmichael')),
+((select id from users where username = 'gmichael'), (select id from users where username = 'ychaya'));
 
 -- sheet_downloads
 insert into sheet_downloads (sheet_id, user_id)
 values
-(1, 2), (1, 4), (1, 5), (4, 5), (4, 3),
-(6, 2), (7, 8), (8, 6), (9, 10), (10, 9);
+((select id from sheets where title = 'Careless Whispers'), (select id from users where username = 'mtesis')),
+((select id from sheets where title = 'Careless Whispers'), (select id from users where username = 'jbrahms')),
+((select id from sheets where title = 'Careless Whispers'), (select id from users where username = 'ludb')),
+((select id from sheets where title = 'War Pigs'), (select id from users where username = 'ludb')),
+((select id from sheets where title = 'War Pigs'), (select id from users where username = 'anosoff')),
+((select id from sheets where title = 'Around The World'), (select id from users where username = 'mtesis')),
+((select id from sheets where title = 'Technologic'), (select id from users where username = 'ychaya')),
+((select id from sheets where title = 'Father Figure'), (select id from users where username = 'siabassen')),
+((select id from sheets where title = 'Mamma Mia'), (select id from users where username = 'PTchaikovsky')),
+((select id from sheets where title = 'Waterloo'), (select id from users where username = 'gmichael'));
 
 -- sheet_ratings
 insert into sheet_ratings (user_id, sheet_id, rating)
 values
-(1, 1, 4.5), (2, 1, 5.0), (1, 4, 4.0), (4, 5, 4.8), (5, 3, 3.9),
-(6, 7, 4.2), (7, 6, 3.8), (8, 9, 5.0), (9, 10, 4.6), (10, 8, 4.1);
+((select id from users where username = 'mbrukson'), (select id from sheets where title = 'Careless Whispers'), 4.5),
+((select id from users where username = 'mtesis'), (select id from sheets where title = 'Careless Whispers'), 5.0),
+((select id from users where username = 'mbrukson'), (select id from sheets where title = 'War Pigs'), 4.0),
+((select id from users where username = 'jbrahms'), (select id from sheets where title = 'I Was Made For Lovin You'), 4.8),
+((select id from users where username = 'ludb'), (select id from sheets where title = 'Gimme Gimme GImme'), 3.9),
+((select id from users where username = 'siabassen'), (select id from sheets where title = 'Technologic'), 4.2),
+((select id from users where username = 'cleague'), (select id from sheets where title = 'Around The World'), 3.8),
+((select id from users where username = 'ychaya'), (select id from sheets where title = 'Mamma Mia'), 5.0),
+((select id from users where username = 'gmichael'), (select id from sheets where title = 'Waterloo'), 4.6),
+((select id from users where username = 'PTchaikovsky'), (select id from sheets where title = 'Father Figure'), 4.1);
 
--- comments
+-- comments (insert sequentially so replies can reference earlier comments)
 insert into comments (sheet, created_by, replying_to, content)
 values
-(1, 2, null,'Absolutely beautiful!'),
-(1, 2, 1, 'Loved the melody and dynamics.'),
-(3, 4, null, 'The synth layering is amazing.'),
-(3, 5, 3, 'Classic yet modern, I enjoyed it.'),
-(5, 6, null, 'Very emotional violin solo.'),
-(6, 7, null, 'Smooth jazz transitions.'),
-(6, 8, null, 'Perfect blend of beats and melody!'),
-(8, 9, null, 'Really soulful saxophone.'),
-(9, 10, null, 'Incredible vocal harmonies.'),
-(9, 3, 9, 'Super creative and technical.');
+((select id from sheets where title = 'Careless Whispers'),
+ (select id from users where username = 'mtesis'),
+ NULL,
+ 'Absolutely beautiful!');
+
+insert into comments (sheet, created_by, replying_to, content)
+values
+((select id from sheets where title = 'Careless Whispers'),
+ (select id from users where username = 'mtesis'),
+ (select id from comments where sheet = (select id from sheets where title = 'Careless Whispers')
+                         and created_by = (select id from users where username = 'mtesis')
+                         and content = 'Absolutely beautiful!'),
+ 'Loved the melody and dynamics.');
+
+insert into comments (sheet, created_by, replying_to, content)
+values
+((select id from sheets where title = 'Gimme Gimme GImme'),
+ (select id from users where username = 'jbrahms'),
+ NULL,
+ 'The synth layering is amazing.');
+
+insert into comments (sheet, created_by, replying_to, content)
+values
+((select id from sheets where title = 'Gimme Gimme GImme'),
+ (select id from users where username = 'ludb'),
+ (select id from comments where sheet = (select id from sheets where title = 'Gimme Gimme GImme')
+                         and created_by = (select id from users where username = 'jbrahms')
+                         and content = 'The synth layering is amazing.'),
+ 'Classic yet modern, I enjoyed it.');
+
+insert into comments (sheet, created_by, replying_to, content)
+values
+((select id from sheets where title = 'I Was Made For Lovin You'),
+ (select id from users where username = 'siabassen'),
+ NULL,
+ 'Very emotional violin solo.');
+
+insert into comments (sheet, created_by, replying_to, content)
+values
+((select id from sheets where title = 'Around The World'),
+ (select id from users where username = 'cleague'),
+ NULL,
+ 'Smooth jazz transitions.');
+
+insert into comments (sheet, created_by, replying_to, content)
+values
+((select id from sheets where title = 'Around The World'),
+ (select id from users where username = 'ychaya'),
+ NULL,
+ 'Perfect blend of beats and melody!');
+
+insert into comments (sheet, created_by, replying_to, content)
+values
+((select id from sheets where title = 'Father Figure'),
+ (select id from users where username = 'gmichael'),
+ NULL,
+ 'Really soulful saxophone.');
+
+insert into comments (sheet, created_by, replying_to, content)
+values
+((select id from sheets where title = 'Mamma Mia'),
+ (select id from users where username = 'PTchaikovsky'),
+ NULL,
+ 'Incredible vocal harmonies.');
+
+insert into comments (sheet, created_by, replying_to, content)
+values
+((select id from sheets where title = 'Mamma Mia'),
+ (select id from users where username = 'anosoff'),
+ (select id from comments where sheet = (select id from sheets where title = 'Mamma Mia')
+                         and created_by = (select id from users where username = 'PTchaikovsky')
+                         and content = 'Incredible vocal harmonies.'),
+ 'Super creative and technical.');
 
 -- comment_likes
 insert into comment_likes (user_id, comment_id)
 values
-(1, 2), (2, 1), (3, 4), (4, 3), (5, 6),
-(6, 5), (7, 7), (8, 8), (9, 9), (10, 10);
+((select id from users where username = 'mbrukson'),
+ (select id from comments where sheet = (select id from sheets where title = 'Careless Whispers')
+                        and created_by = (select id from users where username = 'mtesis')
+                        and content = 'Loved the melody and dynamics.')),
+((select id from users where username = 'mtesis'),
+ (select id from comments where sheet = (select id from sheets where title = 'Careless Whispers')
+                        and created_by = (select id from users where username = 'mtesis')
+                        and content = 'Absolutely beautiful!')),
+((select id from users where username = 'anosoff'),
+ (select id from comments where sheet = (select id from sheets where title = 'Gimme Gimme GImme')
+                        and created_by = (select id from users where username = 'ludb')
+                        and content = 'Classic yet modern, I enjoyed it.')),
+((select id from users where username = 'jbrahms'),
+ (select id from comments where sheet = (select id from sheets where title = 'Gimme Gimme GImme')
+                        and created_by = (select id from users where username = 'jbrahms')
+                        and content = 'The synth layering is amazing.')),
+((select id from users where username = 'ludb'),
+ (select id from comments where sheet = (select id from sheets where title = 'Around The World')
+                        and created_by = (select id from users where username = 'cleague')
+                        and content = 'Smooth jazz transitions.')),
+((select id from users where username = 'siabassen'),
+ (select id from comments where sheet = (select id from sheets where title = 'I Was Made For Lovin You')
+                        and created_by = (select id from users where username = 'siabassen')
+                        and content = 'Very emotional violin solo.')),
+((select id from users where username = 'cleague'),
+ (select id from comments where sheet = (select id from sheets where title = 'Around The World')
+                        and created_by = (select id from users where username = 'ychaya')
+                        and content = 'Perfect blend of beats and melody!')),
+((select id from users where username = 'ychaya'),
+ (select id from comments where sheet = (select id from sheets where title = 'Father Figure')
+                        and created_by = (select id from users where username = 'gmichael')
+                        and content = 'Really soulful saxophone.')),
+((select id from users where username = 'gmichael'),
+ (select id from comments where sheet = (select id from sheets where title = 'Mamma Mia')
+                        and created_by = (select id from users where username = 'PTchaikovsky')
+                        and content = 'Incredible vocal harmonies.')),
+((select id from users where username = 'PTchaikovsky'),
+ (select id from comments where sheet = (select id from sheets where title = 'Mamma Mia')
+                        and created_by = (select id from users where username = 'anosoff')
+                        and content = 'Super creative and technical.'));

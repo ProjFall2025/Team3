@@ -67,7 +67,7 @@ create table sheet_downloads (
 create table sheet_ratings (
     user_id uuid not null references users(id) on delete cascade,
     sheet_id uuid not null references sheets(id) on delete cascade,
-		comment uuid default null references comments(id),
+	comment uuid default null references comments(id),
     rating float not null default 0.0 check (rating between 0.0 and 5.0),
     created_at timestamp default CURRENT_TIMESTAMP,
     updated_at timestamp default CURRENT_TIMESTAMP,
