@@ -21,7 +21,7 @@ const sheetController = {
 
   getById: async (req, res) => {
     try {
-      const id = parseInt(req.params.id);
+      const id = (req.params.id);
       const sheet = await Sheet.getById(id);
       if (!sheet) return res.status(404).json({ message: 'Sheet not found' });
       res.status(200).json(sheet);
@@ -32,7 +32,7 @@ const sheetController = {
 
   getComments: async (req, res) => {
     try {
-      const id = parseInt(req.params.id);
+      const id = (req.params.id);
       const comments = await Sheet.getComments(id);
       if (!comments || comments.length === 0) return res.status(404).json({ message: 'No comments found' });
       res.status(200).json(comments);
@@ -73,7 +73,7 @@ const sheetController = {
 
   update: async (req, res) => {
     try {
-      const id = parseInt(req.params.id);
+      const id = (req.params.id);
       const updated = await Sheet.update(id, req.body);
       if (!updated) return res.status(404).json({ message: 'Sheet not found or deleted' });
       res.status(200).json(updated);
@@ -85,7 +85,7 @@ const sheetController = {
   // TODO: Allow admins to also delete anyone's sheets
   delete: async (req, res) => {
     try {
-      const id = parseInt(req.params.id);
+      const id = (req.params.id);
       const deleted = await Sheet.delete(id);
       if (!deleted) return res.status(404).json({ message: 'Sheet not found or already deleted' });
       res.status(200).json({ message: 'Sheet deleted', sheet: deleted });

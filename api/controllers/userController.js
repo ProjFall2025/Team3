@@ -7,7 +7,7 @@ const userController = {
       if (!follower || !followee) {
         return res.status(400).json({ message: 'follower and followee are required' });
       }
-      const result = await User.follow(parseInt(follower), parseInt(followee));
+      const result = await User.follow((follower), (followee));
       res.status(201).json(result);
     } catch (error) {
       res.status(500).json({ error: error.message });
@@ -36,6 +36,17 @@ const userController = {
     }
   },
 
+  getFollowers: async (req, res) => {
+    try {
+      const id = req.params.id;
+      const followers = await User.getFollowers(id);
+      if (!followers || followers.length === 0) return res.status(404).json({ message: 'No followers found' });
+      res.status(200).json(followers);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  },
+
   getSheets: async (req, res) => {
     try {
       const id = req.params.id;
@@ -49,7 +60,7 @@ const userController = {
 
   getComments: async (req, res) => {
     try {
-      const id = parseInt(req.params.id);
+      const id = (req.params.id);
       const comments = await User.getComments(id);
       if (!comments || comments.length === 0) return res.status(404).json({ message: 'This user has no comments' });
       res.status(200).json(comments);
@@ -60,7 +71,7 @@ const userController = {
 
   makeAdmin: async (req, res) => {
     try {
-      const id = parseInt(req.params.id);
+      const id = (req.params.id);
       const user = await User.makeAdmin(id);
       if (!user) return res.status(404).json({ message: 'No user found' });
       res.status(200).json(user);
@@ -71,7 +82,7 @@ const userController = {
 
   unlock: async(req, res) => {
     try{
-      const id = parseInt(req.params.id);
+      const id = (req.params.id);
       const user = await User.unlock(id);
       if (!user) return res.status(404).json({ message: 'No user found' });
       res.status(200).json(user);
@@ -95,7 +106,7 @@ const userController = {
   // TODO: Allow admins to also delete anyone's user
   delete: async (req, res) => {
     try {
-      const id = parseInt(req.params.id);
+      const id = (req.params.id);
       await User.delete(id);
       return res.status(200).json({ message: 'User deleted or not found'});
     } catch (error) {

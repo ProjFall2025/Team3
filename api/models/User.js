@@ -37,6 +37,13 @@ class User {
       .where('uf.followee', userId);
   }
 
+  static async getFollowers(userId) {
+    return await knex('user_follows as uf')
+      .join('users as u', 'uf.followee', 'u.id')
+      .select('u.*')
+      .where('uf.follower', userId);
+  }
+
   static async getSheets(userId) {
     return await knex('sheets').where('created_by', userId);
   }

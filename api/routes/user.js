@@ -19,6 +19,11 @@ router.get('/:id', userController.getById);
 // @access  Public
 router.get('/:id/following', userController.getFollowing);
 
+// @route   GET /api/user/:id/followers
+// @desc    Get users that follow :id
+// @access  Public
+router.get('/:id/followers', userController.getFollowers);
+
 // @route   GET /api/user/:id/sheets
 // @desc    Get sheets for user
 // @access  Public

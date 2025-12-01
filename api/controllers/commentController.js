@@ -30,7 +30,7 @@ const commentController = {
 
   update: async (req, res) => {
     try {
-      const id = parseInt(req.params.id);
+      const id = (req.params.id);
       const { content } = req.body;
       const updated = await Comment.update(id, content, new Date());
       if (!updated) return res.status(404).json({ message: 'Comment not found or deleted' });
@@ -43,7 +43,7 @@ const commentController = {
   // TODO: Maybe change the way this checks roles
   delete: async (req, res) => {
     try {
-      const id = parseInt(req.params.id);
+      const id = (req.params.id);
 
       let comment = json(await Comment.getById(id));
 
