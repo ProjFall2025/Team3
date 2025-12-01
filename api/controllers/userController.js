@@ -16,7 +16,7 @@ const userController = {
 
   getById: async (req, res) => {
     try {
-      const id = parseInt(req.params.id);
+      const id = req.params.id;
       const user = await User.getById(id);
       if (!user) return res.status(404).json({ message: 'No user found' });
       res.status(200).json(user);
@@ -27,7 +27,7 @@ const userController = {
 
   getFollowing: async (req, res) => {
     try {
-      const id = parseInt(req.params.id);
+      const id = req.params.id;
       const following = await User.getFollowing(id);
       if (!following || following.length === 0) return res.status(404).json({ message: 'No following found' });
       res.status(200).json(following);
@@ -38,7 +38,7 @@ const userController = {
 
   getSheets: async (req, res) => {
     try {
-      const id = parseInt(req.params.id);
+      const id = req.params.id;
       const sheets = await User.getSheets(id);
       if (!sheets || sheets.length === 0) return res.status(404).json({ message: 'This user has no sheets.' });
       res.status(200).json(sheets);
@@ -82,7 +82,7 @@ const userController = {
 
   update: async (req, res) => {
     try {
-      const id = parseInt(req.params.id);
+      const id = req.params.id;
       const updated = await User.update(id, req.body);
       if (!updated) return res.status(404).json({ message: 'User not found or deleted' });
       res.status(200).json(updated);

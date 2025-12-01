@@ -15,6 +15,22 @@ export default function Navbar() {
 
     const hamburgerButtonRef = useRef<HTMLButtonElement>(null);
 
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+    useEffect(() => {
+        const flag = localStorage.getItem("token");
+        setIsLoggedIn(flag !== null);
+        function handleStorageChange() {
+            const updatedFlag = localStorage.getItem("token");
+            setIsLoggedIn(updatedFlag !== null);
+        }
+        window.addEventListener("storage", handleStorageChange);
+
+        return () => {
+            window.removeEventListener("storage", handleStorageChange);
+        };
+    }, []);
+
     function HamburgerButton() {
         return (
             <button ref={hamburgerButtonRef} className="hamburger-button md:hidden text-3xl" onClick={() => {
@@ -77,7 +93,14 @@ export default function Navbar() {
             <div className={"links gap-12 hidden md:flex"}>
                 <div><a href="/" className={tw.unstyledLink}>Home</a></div>
                 <div><a href="/about" className={tw.unstyledLink}>About</a></div>
+                {isLoggedIn ? (
+                <>
+                    <div><a href="/profile" className={tw.unstyledLink}>Profile</a></div>
+                    <div><a href="/logout" className={tw.unstyledLink}>Logout</a></div>
+                </>
+                ) : (
                 <div><a href="/login" className={tw.unstyledLink}>Login</a></div>
+                )}
             </div>
             <HamburgerButton />
         </div>

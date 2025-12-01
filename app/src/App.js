@@ -3,6 +3,8 @@ import { DummyComponent } from './components/dummy.tsx';
 import Home from './pages/home.tsx';
 import Login from './pages/login.tsx';
 import Register from './pages/register.tsx';
+import Profile from './pages/profile.tsx';
+import Logout from './pages/logout.tsx';
 import Navbar from './components/navbar.tsx';
 import { Tester } from './components/Tester.tsx'; 
 
@@ -39,6 +41,8 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/logout" element={<Logout />} />
           <Route path="/audiotest" element={<Tester />}/>
       </Routes>
       </Router>

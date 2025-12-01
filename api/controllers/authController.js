@@ -66,7 +66,7 @@ const authController = {
 
   getProfile: async (req, res) => {
     try {
-      const userId = parseInt(req.params.id);
+      const userId = req.params.id;
       const user = await User.getById(userId);
       res.status(200).json(user);
     } catch (error) {

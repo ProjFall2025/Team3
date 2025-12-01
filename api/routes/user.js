@@ -32,7 +32,7 @@ router.get('/:id/comments', userController.getComments);
 // @route   PATCH /api/user/:id
 // @desc    Update a user
 // @access  Private
-router.patch('/:id', auth, userController.update);
+router.patch('/:id', userController.update);
 
 // @route   PATCH /api/user/:id/unlock
 // @desc    Unlock a user

@@ -167,26 +167,26 @@ export default function Register() {
                 <form className={tw.form}>
                     <input className={tw.inputField} 
                             type="text" id="username" name="username" 
-                            placeholder='Enter username' 
+                            placeholder='Username' 
                             required />
                     <p className={tw.errorMessage + (usernameError ? "" : "hidden")}>
                         {usernameError}
                     </p>
                     <input className={tw.inputField} 
                             type="text" id="email" name="email" 
-                            placeholder='Enter email' 
+                            placeholder='Email' 
                             required />
                     <p className={tw.errorMessage + (emailError ? "" : "hidden")}>
                         {emailError}
                     </p>    
                     <input className={tw.inputField}
                             type="password" id="password" name="password" 
-                            placeholder='Enter password' 
+                            placeholder='Password' 
                             required />
                     <p className={tw.errorMessage + (passwordError ? "" : "hidden")}>
                         {passwordError}
                     </p>
-                    <textarea className={tw.inputField} 
+                    <textarea className={tw.textarea} 
                             id="bio" name="bio" 
                             placeholder='Write something about yourself (optional)' 
                             />
